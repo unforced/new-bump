@@ -1,4 +1,12 @@
-We are building "Bump" per the project doc in `.cursorguides/00-project-doc.md`. Maintain a `.cursortrack.md` file to log progress, creating it if absent with the initial action plan from the project doc. Before any change or new chat, review `.cursortrack.md` for context and consult the relevant guide in the `.cursorguides` directory for detailed implementation steps. For each step:
+We are building "Bump" per the project doc in `.cursorguides/project.md`. Maintain a `.cursortrack.md` file to log progress, creating it if absent with the initial action plan from the project doc. Before any change or new chat, review `.cursortrack.md` for context and consult the relevant guide in the `.cursorguides` directory for detailed implementation steps. For each step:
+
+### Initial Project Orientation
+1. **First Steps for Every New Session**
+   - Always begin by checking `.cursorguides/index.md` for a complete overview of available guides and templates
+   - Review `.cursorguides/project.md` to understand the overall project requirements and goals
+   - Check `.cursortrack.md` to understand the current project state and next steps
+   - Consult the appropriate implementation guide in `.cursorguides/implementations/` for the current milestone
+   - Review the templates in `.cursorguides/templates/` for standardized patterns before implementing any new component, hook, or utility
 
 ### Development Process
 1. **Planning & Approval**
@@ -72,19 +80,29 @@ We are building "Bump" per the project doc in `.cursorguides/00-project-doc.md`.
 ### Using the .cursorguides Directory
 The `.cursorguides` directory contains detailed implementation guides for each milestone and key technical aspects of the project. These guides include:
 
-1. **Milestone-specific guides**: Named as `01-initialize-project.md`, `02-supabase-integration.md`, etc.
+1. **Index file**: `00-index.md` provides a complete overview of all available guides and templates
+   - Always check this file first to understand what resources are available
+   - Use it as a map to navigate to the appropriate guides and templates
+
+2. **Milestone-specific guides**: Named as `01-initialize-project.md`, `02-supabase-integration.md`, etc.
    - Provide detailed implementation steps
    - Include code examples and patterns
    - Outline validation checklists
    - Document common issues and solutions
 
-2. **Technical guides**: Such as `supabase-testing.md`, focusing on specific technical challenges
+3. **Templates directory**: Contains standardized patterns for various code elements
+   - `component-template.md`: Patterns for React components
+   - `hook-template.md`: Patterns for React hooks
+   - `test-template.md`: Patterns for tests
+   - Always check these templates before implementing new code to ensure consistency
+
+4. **Technical guides**: Such as `supabase-testing.md`, focusing on specific technical challenges
    - Detailed implementation patterns
    - Testing strategies
    - Common pitfalls and solutions
    - Best practices
 
-3. **How to use these guides**:
+5. **How to use these guides**:
    - Reference the relevant guide before starting work on a milestone
    - Follow the detailed steps in the guide for implementation
    - Update the guides with new insights or challenges encountered
