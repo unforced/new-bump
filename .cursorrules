@@ -1,0 +1,136 @@
+We are building "Bump" per the project doc in `.cursorguides/00-project-doc.md`. Maintain a `.cursortrack.md` file to log progress, creating it if absent with the initial action plan from the project doc. Before any change or new chat, review `.cursortrack.md` for context and consult the relevant guide in the `.cursorguides` directory for detailed implementation steps. For each step:
+
+### Development Process
+1. **Planning & Approval**
+   - Review `.cursortrack.md` for context and current state
+   - Consult relevant guide in `.cursorguides` directory for implementation details
+   - Propose changes with files, code snippets, and clear rationale
+   - Await explicit approval before proceeding with implementation
+
+2. **Implementation Requirements**
+   - Validate theme properties against TypeScript interfaces; log mismatches as errors
+   - For Supabase changes:
+     - Validate schema changes (foreign keys, etc.) against current schema
+     - Implement polling fallback for local development
+     - Document any schema migrations
+
+3. **Testing Requirements (ALL MUST PASS BEFORE COMPLETION)**
+   - Write and run frontend tests:
+     - Component rendering and interactions
+     - JavaScript runtime errors
+     - Theme and style validations
+   - Write and run backend tests:
+     - Supabase CRUD operations
+     - API integrations
+     - Data validation
+   - Run and fix ALL:
+     - `npm run build` - no build errors
+     - `npm test` - all tests pass
+     - TypeScript checks - no type errors
+     - Linting - no linting errors
+
+4. **UI Verification**
+   - Test all frontend changes locally
+   - Document visual state with screenshots if relevant
+   - Await explicit UI approval with visual confirmation
+
+5. **Documentation & Tracking**
+   - Update `.cursortrack.md` only after:
+     - All tests pass
+     - UI changes approved
+     - Build succeeds
+   - Document:
+     - Completed steps
+     - Current project state
+     - Updated action plan
+     - New milestones (post-blueprint)
+   - Update relevant `.cursorguides` files with new insights or challenges encountered
+
+6. **Commit Process**
+   - Only commit after explicit approval
+   - Never push commits (handled manually)
+   - Use format:
+     ```
+     git commit -m "Title (50-72 chars)" \
+       -m "Detailed change 1" \
+       -m "Detailed change 2" \
+       -m "Learnings: Insight for refinement"
+     ```
+   - For bug fixes:
+     - Confirm fix works before commit
+     - Document root cause and solution
+     - Include test preventing regression
+
+7. **Continuous Improvement**
+   - Update `.cursorrules` when process gaps identified
+   - Add or enhance `.cursorguides` files with new learnings
+   - Document learnings and refinements
+   - Maintain up-to-date dependency list
+   - Track technical debt and future improvements
+   - Utilize research APIs (Perplexity, web search) (Use `llm -m {sonar|sonar-pro-reasoning|sonar-deep-research}) to gather up-to-date information about current best practices and version numbers.
+
+### Using the .cursorguides Directory
+The `.cursorguides` directory contains detailed implementation guides for each milestone and key technical aspects of the project. These guides include:
+
+1. **Milestone-specific guides**: Named as `01-initialize-project.md`, `02-supabase-integration.md`, etc.
+   - Provide detailed implementation steps
+   - Include code examples and patterns
+   - Outline validation checklists
+   - Document common issues and solutions
+
+2. **Technical guides**: Such as `supabase-testing.md`, focusing on specific technical challenges
+   - Detailed implementation patterns
+   - Testing strategies
+   - Common pitfalls and solutions
+   - Best practices
+
+3. **How to use these guides**:
+   - Reference the relevant guide before starting work on a milestone
+   - Follow the detailed steps in the guide for implementation
+   - Update the guides with new insights or challenges encountered
+   - After completing a milestone, the user will perform a full visual review and provide feedback to update the guides
+   - When best practices or version information is unclear or needs updating, use research APIs (like Perplexity or web search) to gather current information, making forward-looking projections to March 2025
+
+Once approved:
+- Update `.cursortrack.md`: mark step complete, detail project state, update action plan (track completed steps, propose new milestones post-blueprint).
+- Commit with: `git commit -m "Title (50-72 chars)" -m "Detailed change 1" -m "Detailed change 2" -m "Learnings: Insight for refinement" -m "..."`.
+- Do not commit without my explicit sign-off, especially for bugs—confirm fixes first. Do not push; I'll handle `git push` manually.
+- Post-blueprint, append new milestones to this file's action plan.
+Handle terminal commands (e.g., `supabase db push`). Ask if unsure—don't assume.
+Local Setup: Run `supabase init`, `supabase start`, set `.env.development` with local URL/key per README.
+
+### Using the `llm` Command for Research
+- The `llm` command provides access to powerful language models for research:
+  ```bash
+  llm -m sonar-reasoning-pro "Your query here focusing on current best practices and implementation patterns"
+  ```
+- Available model options:
+  - `sonar-reasoning-pro`: Best for detailed technical analysis and predictions
+  - `sonar`: Good for smaller, more focused queries
+
+- Best practices for using `llm`:
+  1. Focus on current best practices that would be relevant for the project
+  2. Request version numbers with justification based on release cycles
+  3. Ask about emerging patterns and deprecations to anticipate changes
+  4. Include specific context about the Bump application when relevant
+  5. Break complex research into multiple focused queries
+
+- Example effective queries:
+  ```bash
+  # Architecture patterns query
+  llm -m sonar-reasoning-pro "What are the current best practices for React application architecture? Focus on state management, data fetching, and component composition."
+  
+  # Specific feature research
+  llm -m sonar-reasoning-pro "What are the current best practices for testing Supabase realtime subscriptions? What emerging patterns are becoming standard?"
+
+  # Version query
+  llm -m sonar "What are the current stable versions of React, Vite, TypeScript, and Supabase?"
+
+  # Quick focused query
+  llm -m sonar "What's the current recommended way to handle PWA registration in a Vite project?"
+  ```
+
+- After research:
+  1. Document findings in the appropriate `.cursorguides` file
+  2. Update dependency specifications with appropriate versions
+  3. Incorporate patterns into implementation plans
