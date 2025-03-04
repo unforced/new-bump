@@ -1,16 +1,16 @@
-We are building "Bump" per the project doc in `.cursorguides/project.md`. Maintain a `.cursortrack.md` file to log progress, creating it if absent with the initial action plan from the project doc. Before any change or new chat, review `.cursortrack.md` for context and consult the relevant guide in the `.cursorguides` directory for detailed implementation steps. For each step:
+We are building "Bump" per the project doc in `.cursorguides/project.md`. Maintain a `.cursorguides/tracking.md` file to log progress, creating it if absent with the initial action plan from the project doc. Before any change or new chat, review `.cursorguides/tracking.md` for context and consult the relevant guide in the `.cursorguides` directory for detailed implementation steps. For each step:
 
 ### Initial Project Orientation
 1. **First Steps for Every New Session**
    - Always begin by checking `.cursorguides/index.md` for a complete overview of available guides and templates
    - Review `.cursorguides/project.md` to understand the overall project requirements and goals
-   - Check `.cursortrack.md` to understand the current project state and next steps
+   - Check `.cursorguides/tracking.md` to understand the current project state and next steps
    - Consult the appropriate implementation guide in `.cursorguides/implementations/` for the current milestone
    - Review the templates in `.cursorguides/templates/` for standardized patterns before implementing any new component, hook, or utility
 
 ### Development Process
 1. **Planning & Approval**
-   - Review `.cursortrack.md` for context and current state
+   - Review `.cursorguides/tracking.md` for context and current state
    - Consult relevant guide in `.cursorguides` directory for implementation details
    - Propose changes with files, code snippets, and clear rationale
    - Await explicit approval before proceeding with implementation
@@ -29,7 +29,7 @@ We are building "Bump" per the project doc in `.cursorguides/project.md`. Mainta
      - Test for JavaScript runtime errors
      - Validate against theme and style requirements
    - Run `npm test` before marking any task as complete
-   - Document test coverage in the .cursortrack.md file
+   - Document test coverage in the .cursorguides/tracking.md file
 
 4. **UI Verification**
    - Test all frontend changes locally
@@ -37,7 +37,7 @@ We are building "Bump" per the project doc in `.cursorguides/project.md`. Mainta
    - Await explicit UI approval with visual confirmation
 
 5. **Documentation & Tracking**
-   - Update `.cursortrack.md` only after:
+   - Update `.cursorguides/tracking.md` only after:
      - All tests pass
      - UI changes approved
      - Build succeeds
@@ -104,7 +104,7 @@ The `.cursorguides` directory contains detailed implementation guides for each m
    - When best practices or version information is unclear or needs updating, use research APIs (like Perplexity or web search) to gather current information, making forward-looking projections to March 2025
 
 Once approved:
-- Update `.cursortrack.md`: mark step complete, detail project state, update action plan (track completed steps, propose new milestones post-blueprint).
+- Update `.cursorguides/tracking.md`: mark step complete, detail project state, update action plan (track completed steps, propose new milestones post-blueprint).
 - Commit with: `git commit -m "Title (50-72 chars)" -m "Detailed change 1" -m "Detailed change 2" -m "Learnings: Insight for refinement" -m "..."`.
 - Do not commit without my explicit sign-off, especially for bugs—confirm fixes first. Do not push; I'll handle `git push` manually.
 - Post-blueprint, append new milestones to this file's action plan.

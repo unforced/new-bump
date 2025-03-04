@@ -199,7 +199,7 @@ To begin development on the Bump application:
 2. Set up environment variables using the templates above
 3. Review the detailed implementation guide for Milestone 1 in `.cursorguides/01-initialize-project.md`
 4. Follow the step-by-step instructions to set up the initial project structure
-5. Create the `.cursortrack.md` file to log your progress
+5. Create the `.cursorguides/tracking.md` file to log your progress
 
 ## Next Steps
 

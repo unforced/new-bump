@@ -17,6 +17,7 @@
 - PWA configuration set up
 - Fixed React DOM warnings by implementing transient props in styled-components
 - Enhanced implementation guides with improved context management and test-first approach
+- Moved project tracking file to .cursorguides/tracking.md for better organization
 
 ## Action Plan (from Project Documentation)
 
@@ -79,7 +80,7 @@
 5. Connect the auth context to Supabase
 
 ## Completed Steps
-- Created project tracking file (.cursortrack.md)
+- Created project tracking file (now at .cursorguides/tracking.md)
 - Initialized Vite project with React and TypeScript template
 - Installed core dependencies (react, react-dom, react-router-dom, styled-components, etc.)
 - Installed development dependencies (vitest, testing-library, etc.)
@@ -100,6 +101,7 @@
 - Created a styled-components best practices guide
 - Enhanced implementation guides with improved context management and test-first approach
 - Created an implementation guide template for future milestones
+- Moved project tracking file to .cursorguides/tracking.md for better organization
 
 ## Notes on Supabase Initialization
 When initializing Supabase with `supabase init`, you may be prompted about generating VS Code settings for Deno. You can bypass this by using `echo "N" | supabase init` to automatically answer "no" to this question.
@@ -118,6 +120,7 @@ Always check the following resources for guidance:
 - `.cursorguides/templates/` - Reusable templates for components, hooks, tests, etc.
 - `.cursorguides/concepts/` - Conceptual guides for understanding architecture
 - `.cursorguides/troubleshooting/` - Solutions for common issues 
+- `.cursorguides/tracking.md` - This file, tracking project progress
 
 ## Learnings & Best Practices
 - **Styled Components Transient Props**: Use the `$propName` syntax for props that should be used only for styling and not passed to the DOM. This prevents React DOM warnings about non-standard HTML attributes. For example, use `$fullWidth` instead of `fullWidth` when the prop is only used for styling.
@@ -126,4 +129,6 @@ Always check the following resources for guidance:
 
 - **Test-First Approach**: Write tests before implementing features to ensure clear requirements and better test coverage. This approach helps catch issues early and leads to more maintainable code.
 
-- **Cross-Cutting Concerns**: Identify patterns that should be applied consistently across components and features (error handling, accessibility, performance, security) and document them in implementation guides. This ensures consistent implementation of these important aspects. 
+- **Cross-Cutting Concerns**: Identify patterns that should be applied consistently across components and features (error handling, accessibility, performance, security) and document them in implementation guides. This ensures consistent implementation of these important aspects.
+
+- **Documentation Organization**: Keep all project documentation in a dedicated directory (.cursorguides) for better organization and discoverability. 

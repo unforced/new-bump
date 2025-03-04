@@ -9,6 +9,7 @@ This directory contains guides, templates, and troubleshooting information for t
 │
 ├── index.md                   # This file
 ├── project.md                 # Project overview and requirements
+├── tracking.md                # Project tracking and progress
 │
 ├── implementations/           # Milestone implementation guides
 │   ├── 00-project-setup.md         # Project setup and overview
@@ -34,13 +35,21 @@ This directory contains guides, templates, and troubleshooting information for t
 │   ├── utility-functions-template.md # Utility function patterns
 │   ├── test-template.md            # Test patterns
 │   ├── supabase-integration-template.md # Supabase integration patterns
-│   └── project-structure-template.md # Project structure patterns
+│   ├── project-structure-template.md # Project structure patterns
+│   └── implementation-guide-template.md # Template for creating milestone implementation guides
 │
 └── troubleshooting/           # Common issues and solutions
     ├── supabase-testing.md         # Supabase testing challenges
     ├── authentication-issues.md    # Auth troubleshooting
     └── performance-optimization.md # Performance troubleshooting
 ```
+
+## Core Documentation
+
+| Document | Description |
+|----------|-------------|
+| [Project Overview](./project.md) | Project requirements and specifications |
+| [Project Tracking](./tracking.md) | Current progress, action plan, and completed steps |
 
 ## Milestone Implementation Guides
 
@@ -92,6 +101,7 @@ This directory contains guides, templates, and troubleshooting information for t
 2. **Understanding architecture**: Refer to concept guides in the `concepts/` directory.
 3. **Troubleshooting issues**: Check the `troubleshooting/` directory for solutions to common problems.
 4. **Creating new code**: Use templates from the `templates/` directory for consistent structure.
+5. **Tracking progress**: Refer to the [tracking.md](./tracking.md) file to see current project status and next steps.
 
 ## Contributing to Guides
 
@@ -101,6 +111,7 @@ When updating these guides:
 2. **Document challenges and solutions**: Add troubleshooting entries when you encounter and solve issues.
 3. **Extract reusable patterns**: When you identify a pattern that could be reused, add it to the templates directory.
 4. **Update the index**: Keep this index file up to date with new guides and status changes.
+5. **Track progress**: Keep the tracking.md file updated with completed steps and next actions.
 
 ## Next Steps
 
