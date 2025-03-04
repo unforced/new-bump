@@ -18,6 +18,14 @@
 - Fixed React DOM warnings by implementing transient props in styled-components
 - Enhanced implementation guides with improved context management and test-first approach
 - Moved project tracking file to .cursorguides/tracking.md for better organization
+- Implemented Supabase integration with:
+  - Database schema defined
+  - Supabase client utility created
+  - Error handling utilities implemented
+  - Authentication context updated to use Supabase
+  - Profile service created
+  - Tests for Supabase integration
+- All tests are now passing (60/60)
 
 ## Action Plan (from Project Documentation)
 
@@ -32,7 +40,7 @@
    - Create Supabase project
    - Apply schema migrations
    - Set up client with polling fallback
-   - Status: **Next Up**
+   - Status: **In Progress**
 
 3. **Home & Check-In**:  
    - Build Home page with status list (Supabase fetch, grouped by place)
@@ -73,11 +81,11 @@
    - Status: **Not Started**
 
 ## Next Steps
-1. Set up Supabase project
-2. Create database schema
-3. Implement authentication with Supabase
-4. Set up real-time subscriptions with polling fallback
-5. Connect the auth context to Supabase
+1. Push the database schema to Supabase
+2. Test the authentication flow with Supabase
+3. Implement the profile management functionality
+4. Set up real-time subscriptions for check-ins
+5. Implement the Home page with status list
 
 ## Completed Steps
 - Created project tracking file (now at .cursorguides/tracking.md)
@@ -102,6 +110,15 @@
 - Enhanced implementation guides with improved context management and test-first approach
 - Created an implementation guide template for future milestones
 - Moved project tracking file to .cursorguides/tracking.md for better organization
+- Created Supabase client utility with proper error handling
+- Defined database schema with tables for profiles, places, check-ins, friends, meetups, and settings
+- Set up Row Level Security (RLS) policies for all tables
+- Updated AuthContext to use Supabase for authentication
+- Implemented email OTP authentication flow
+- Created profile service for managing user profiles
+- Implemented data subscription hook with polling fallback
+- Added tests for Supabase client, error handling, and authentication
+- Fixed failing tests in error handling and authentication context
 
 ## Notes on Supabase Initialization
 When initializing Supabase with `supabase init`, you may be prompted about generating VS Code settings for Deno. You can bypass this by using `echo "N" | supabase init` to automatically answer "no" to this question.
@@ -131,4 +148,16 @@ Always check the following resources for guidance:
 
 - **Cross-Cutting Concerns**: Identify patterns that should be applied consistently across components and features (error handling, accessibility, performance, security) and document them in implementation guides. This ensures consistent implementation of these important aspects.
 
-- **Documentation Organization**: Keep all project documentation in a dedicated directory (.cursorguides) for better organization and discoverability. 
+- **Documentation Organization**: Keep all project documentation in a dedicated directory (.cursorguides) for better organization and discoverability.
+
+- **Supabase Integration**: Use a singleton pattern for the Supabase client to ensure consistent configuration across the application. Implement proper error handling and type safety for all Supabase operations.
+
+- **Authentication Flow**: Implement a clean authentication flow with proper error handling and user feedback. Use the Supabase auth state change listener to keep the UI in sync with the authentication state.
+
+- **Testing Supabase**: Mock the Supabase client in tests to avoid making actual API calls. Test both success and error cases for all Supabase operations.
+
+- **Row Level Security**: Implement proper RLS policies to ensure data security at the database level. Test RLS policies to verify they work as expected.
+
+- **Realtime Subscriptions**: Implement polling fallback for environments where WebSocket connections are not supported or are blocked.
+
+- **Test Mocking Best Practices**: When mocking functions that are imported and used by other functions, use `vi.spyOn` on the imported module rather than trying to mock with `require()`. This ensures proper module resolution in the ESM environment. 
