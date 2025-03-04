@@ -67,6 +67,7 @@ This directory contains guides, templates, and troubleshooting information for t
 | [Test Template](./templates/test-template.md) | Patterns for tests |
 | [Supabase Integration Template](./templates/supabase-integration-template.md) | Patterns for Supabase integration |
 | [Project Structure Template](./templates/project-structure-template.md) | Patterns for project structure |
+| [Implementation Guide Template](./templates/implementation-guide-template.md) | Template for creating milestone implementation guides |
 
 ## Troubleshooting Guides
 

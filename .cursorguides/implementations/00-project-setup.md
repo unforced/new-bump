@@ -3,6 +3,38 @@
 ## Overview
 This guide provides a high-level overview for setting up the Bump application and understanding its structure. For detailed implementation steps, refer to the milestone-specific guides.
 
+## Related Resources
+
+### Essential References
+These resources are critical for understanding the project setup:
+
+**Concepts:**
+- [Testing Strategy](../concepts/testing-strategy.md) - Understand the overall testing approach for the project
+- [Styled Components Best Practices](../concepts/styled-components-best-practices.md) - Learn best practices for styling components
+
+**Templates:**
+- [Project Structure Template](../templates/project-structure-template.md) - Reference for organizing project files and directories
+- [Component Template](../templates/component-template.md) - Standard patterns for creating React components
+
+**Troubleshooting:**
+- [Performance Optimization](../troubleshooting/performance-optimization.md) - Solutions for common performance issues
+
+### Tool-Specific Patterns
+- **Vite**: 
+  - Use `vite.config.ts` for configuration rather than modifying package.json
+  - Configure aliases in both vite.config.ts and tsconfig.json for consistency
+  - For HMR issues, check that you're using the correct import.meta.hot syntax
+  
+- **TypeScript**: 
+  - Enable strict mode from the beginning to catch type errors early
+  - Use path aliases to simplify imports (e.g., @/components instead of ../../components)
+  - Configure tsconfig.json with proper lib and module settings for modern JavaScript
+
+- **Supabase**:
+  - Use `supabase start` to run the local instance
+  - Check port conflicts with `supabase status`
+  - Use `supabase db reset` to reset the database during development
+
 ## Quick Start
 
 ```bash
@@ -98,6 +130,34 @@ For detailed implementation steps for each milestone, refer to the corresponding
 3. **Testing First**: Write tests before or alongside feature implementation.
 4. **Theme Consistency**: Use the theme system for all styling to maintain visual consistency.
 5. **Progressive Enhancement**: Build core functionality first, then enhance the user experience.
+
+## Cross-Cutting Concerns
+
+These patterns should be applied consistently across all milestones:
+
+1. **Error Handling**: 
+   - Implement try/catch blocks for async operations
+   - Use error boundaries for component errors
+   - Log errors with contextual information
+   - Present user-friendly error messages
+
+2. **Accessibility**:
+   - Ensure proper semantic HTML
+   - Include ARIA attributes where needed
+   - Support keyboard navigation
+   - Maintain sufficient color contrast
+
+3. **Performance**:
+   - Lazy load components and routes
+   - Optimize bundle size
+   - Implement proper memoization
+   - Monitor and optimize render cycles
+
+4. **Security**:
+   - Validate all user inputs
+   - Implement proper authentication checks
+   - Use environment variables for sensitive information
+   - Follow Supabase security best practices
 
 ## Common Gotchas
 
