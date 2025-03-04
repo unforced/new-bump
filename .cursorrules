@@ -23,19 +23,13 @@ We are building "Bump" per the project doc in `.cursorguides/project.md`. Mainta
      - Document any schema migrations
 
 3. **Testing Requirements (ALL MUST PASS BEFORE COMPLETION)**
-   - Write and run frontend tests:
-     - Component rendering and interactions
-     - JavaScript runtime errors
-     - Theme and style validations
-   - Write and run backend tests:
-     - Supabase CRUD operations
-     - API integrations
-     - Data validation
-   - Run and fix ALL:
-     - `npm run build` - no build errors
-     - `npm test` - all tests pass
-     - TypeScript checks - no type errors
-     - Linting - no linting errors
+   - Write and run tests for EACH component as it is developed, not just at milestone completion
+   - For each new component or feature:
+     - Write tests for rendering and interactions
+     - Test for JavaScript runtime errors
+     - Validate against theme and style requirements
+   - Run `npm test` before marking any task as complete
+   - Document test coverage in the .cursortrack.md file
 
 4. **UI Verification**
    - Test all frontend changes locally
@@ -152,3 +146,11 @@ Local Setup: Run `supabase init`, `supabase start`, set `.env.development` with 
   1. Document findings in the appropriate `.cursorguides` file
   2. Update dependency specifications with appropriate versions
   3. Incorporate patterns into implementation plans
+
+### Regular Documentation Review
+- Before starting any new task, re-read the relevant sections of:
+  - Project documentation (.cursorguides/project.md)
+  - Implementation guide for the current milestone
+  - Verification checklist for the current milestone
+  - Any relevant files in .cursorguides/{concept|templates|troubleshooting}
+- After completing each component or feature, verify against the requirements
