@@ -10,7 +10,8 @@ This directory contains guides, templates, and troubleshooting information for t
 ├── 00-index.md                # This file
 │
 ├── implementations/           # Milestone implementation guides
-│   ├── 01-initialize-project.md    # Project setup
+│   ├── 00-project-setup.md         # Project setup and overview
+│   ├── 01-initialize-project.md    # Project initialization
 │   ├── 02-supabase-integration.md  # Supabase backend setup
 │   ├── 03-home-checkin.md          # Home page and check-in functionality
 │   ├── 04-gathering-places.md      # Places functionality
@@ -43,8 +44,9 @@ This directory contains guides, templates, and troubleshooting information for t
 
 | # | Guide | Status | Description |
 |---|-------|--------|-------------|
-| 1 | [Initialize Project](./implementations/01-initialize-project.md) | ✅ Complete | Project setup, routing, styling, testing |
-| 2 | [Supabase Integration](./implementations/02-supabase-integration.md) | ⏳ In Progress | Backend setup, authentication, database schema |
+| 0 | [Project Setup](./implementations/00-project-setup.md) | ✅ Complete | Project overview and setup instructions |
+| 1 | [Initialize Project](./implementations/01-initialize-project.md) | ⏳ In Progress | Project initialization, routing, styling, testing |
+| 2 | [Supabase Integration](./implementations/02-supabase-integration.md) | 🔜 Planned | Backend setup, authentication, database schema |
 | 3 | [Home & Check-In](./implementations/03-home-checkin.md) | 🔜 Planned | Home page with status list and check-in form |
 | 4 | [Gathering Places](./implementations/04-gathering-places.md) | 🔜 Planned | Places list/map with add/edit functionality |
 | 5 | [Friends & Intent](./implementations/05-friends-intent.md) | 🔜 Planned | Friends list with intent toggles |
