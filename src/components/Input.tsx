@@ -7,13 +7,13 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   fullWidth?: boolean;
 }
 
-const InputContainer = styled.div<{ fullWidth?: boolean }>`
+const InputContainer = styled.div<{ $fullWidth?: boolean }>`
   display: flex;
   flex-direction: column;
   margin-bottom: ${({ theme }) => theme.space[3]}px;
   
-  ${({ fullWidth }) =>
-    fullWidth &&
+  ${({ $fullWidth }) =>
+    $fullWidth &&
     css`
       width: 100%;
     `}
@@ -25,11 +25,11 @@ const Label = styled.label`
   color: ${({ theme }) => theme.colors.text};
 `;
 
-const StyledInput = styled.input<{ hasError?: boolean }>`
+const StyledInput = styled.input<{ $hasError?: boolean }>`
   padding: ${({ theme }) => theme.space[2]}px;
   border-radius: ${({ theme }) => theme.radii.sm};
-  border: 1px solid ${({ theme, hasError }) => 
-    hasError ? 'red' : theme.colors.backgroundAlt};
+  border: 1px solid ${({ theme, $hasError }) => 
+    $hasError ? 'red' : theme.colors.backgroundAlt};
   font-size: ${({ theme }) => theme.typography.fontSize.body};
   background-color: white;
   transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
@@ -45,8 +45,8 @@ const StyledInput = styled.input<{ hasError?: boolean }>`
     cursor: not-allowed;
   }
   
-  ${({ hasError }) =>
-    hasError &&
+  ${({ $hasError }) =>
+    $hasError &&
     css`
       border-color: red;
       
@@ -65,9 +65,9 @@ const ErrorMessage = styled.span`
 const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ label, error, fullWidth = false, ...props }, ref) => {
     return (
-      <InputContainer fullWidth={fullWidth}>
+      <InputContainer $fullWidth={fullWidth}>
         {label && <Label>{label}</Label>}
-        <StyledInput ref={ref} hasError={!!error} {...props} />
+        <StyledInput ref={ref} $hasError={!!error} {...props} />
         {error && <ErrorMessage>{error}</ErrorMessage>}
       </InputContainer>
     );

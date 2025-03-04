@@ -7,12 +7,13 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
   clickable?: boolean;
 }
 
-const StyledCard = styled.div<CardProps>`
+// Use $padding and $clickable as transient props (they won't be passed to the DOM)
+const StyledCard = styled.div<{ $padding?: boolean; $clickable?: boolean; variant?: string }>`
   border-radius: ${({ theme }) => theme.radii.md};
   overflow: hidden;
   
-  ${({ padding, theme }) =>
-    padding &&
+  ${({ $padding, theme }) =>
+    $padding &&
     css`
       padding: ${theme.space[3]}px;
     `}
@@ -36,8 +37,8 @@ const StyledCard = styled.div<CardProps>`
     }
   }}
   
-  ${({ clickable }) =>
-    clickable &&
+  ${({ $clickable }) =>
+    $clickable &&
     css`
       cursor: pointer;
       transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
@@ -61,7 +62,12 @@ const Card: React.FC<CardProps> = ({
   ...props
 }) => {
   return (
-    <StyledCard variant={variant} padding={padding} clickable={clickable} {...props}>
+    <StyledCard 
+      variant={variant} 
+      $padding={padding} 
+      $clickable={clickable} 
+      {...props}
+    >
       {children}
     </StyledCard>
   );

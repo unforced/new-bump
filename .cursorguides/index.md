@@ -25,6 +25,7 @@ This directory contains guides, templates, and troubleshooting information for t
 ├── concepts/                  # Conceptual guides
 │   ├── authentication-flow.md      # Authentication concepts
 │   ├── realtime-patterns.md        # Realtime data patterns
+│   ├── styled-components-best-practices.md # Styled-components best practices
 │   └── testing-strategy.md         # Overall testing approach
 │
 ├── templates/                 # Reusable templates
@@ -81,6 +82,7 @@ This directory contains guides, templates, and troubleshooting information for t
 |-------|-------------|
 | [Authentication Flow](./concepts/authentication-flow.md) | Overview of the authentication process |
 | [Realtime Patterns](./concepts/realtime-patterns.md) | Patterns for realtime data handling |
+| [Styled Components Best Practices](./concepts/styled-components-best-practices.md) | Best practices for using styled-components |
 | [Testing Strategy](./concepts/testing-strategy.md) | Overall approach to testing |
 
 ## How to Use These Guides

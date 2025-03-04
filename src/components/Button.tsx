@@ -11,7 +11,13 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
 }
 
-const StyledButton = styled.button<ButtonProps>`
+// Use $fullWidth and $isLoading as transient props
+const StyledButton = styled.button<{
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  $fullWidth?: boolean;
+  $isLoading?: boolean;
+}>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -92,8 +98,8 @@ const StyledButton = styled.button<ButtonProps>`
   }}
   
   /* Full width */
-  ${({ fullWidth }) =>
-    fullWidth &&
+  ${({ $fullWidth }) =>
+    $fullWidth &&
     css`
       width: 100%;
     `}
@@ -105,8 +111,8 @@ const StyledButton = styled.button<ButtonProps>`
   }
   
   /* Loading state */
-  ${({ isLoading }) =>
-    isLoading &&
+  ${({ $isLoading }) =>
+    $isLoading &&
     css`
       position: relative;
       color: transparent;
@@ -143,8 +149,8 @@ const Button: React.FC<ButtonProps> = ({
     <StyledButton
       variant={variant}
       size={size}
-      fullWidth={fullWidth}
-      isLoading={isLoading}
+      $fullWidth={fullWidth}
+      $isLoading={isLoading}
       disabled={disabled || isLoading}
       {...props}
     >
