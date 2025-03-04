@@ -63,11 +63,14 @@ const ErrorMessage = styled.span`
 `;
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, error, fullWidth = false, ...props }, ref) => {
+  ({ label, error, fullWidth = false, id, ...props }, ref) => {
+    // Generate a unique ID if one is not provided
+    const inputId = id || `input-${Math.random().toString(36).substring(2, 9)}`;
+    
     return (
       <InputContainer $fullWidth={fullWidth}>
-        {label && <Label>{label}</Label>}
-        <StyledInput ref={ref} $hasError={!!error} {...props} />
+        {label && <Label htmlFor={inputId}>{label}</Label>}
+        <StyledInput ref={ref} id={inputId} $hasError={!!error} {...props} />
         {error && <ErrorMessage>{error}</ErrorMessage>}
       </InputContainer>
     );
