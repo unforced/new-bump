@@ -6,6 +6,8 @@ export interface Theme {
     backgroundAlt: string;
     text: string;
     textLight: string;
+    error: string;
+    success: string;
   };
   typography: {
     fontFamily: string;

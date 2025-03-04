@@ -8,6 +8,8 @@ const theme: Theme = {
     backgroundAlt: '#F0ECE0',
     text: '#212121',
     textLight: '#666666',
+    error: '#E53935',
+    success: '#43A047',
   },
   typography: {
     fontFamily: '"Roboto", sans-serif',

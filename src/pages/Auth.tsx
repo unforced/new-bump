@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Button from '../components/Button';
 import Input from '../components/Input';
@@ -12,132 +11,130 @@ const AuthContainer = styled.div`
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding: ${({ theme }) => theme.space[3]}px;
-`;
-
-const Logo = styled.div`
-  font-size: 32px;
-  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
-  color: ${({ theme }) => theme.colors.primary};
-  margin-bottom: ${({ theme }) => theme.space[4]}px;
-`;
-
-const AuthCard = styled(Card)`
-  width: 100%;
-  max-width: 400px;
+  padding: 1rem;
 `;
 
 const Form = styled.form`
   width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const ErrorMessage = styled.p`
+  color: ${({ theme }) => theme.colors.error};
+  margin: 0.5rem 0;
+`;
+
+const SuccessMessage = styled.p`
+  color: ${({ theme }) => theme.colors.success};
+  margin: 0.5rem 0;
 `;
 
 const Auth: React.FC = () => {
-  const { login, verifyOtp } = useAuth();
-  const navigate = useNavigate();
-  
+  const { login, verifyOtp, logout, isAuthenticated, user, isLoading, error } = useAuth();
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
-  const [isOtpSent, setIsOtpSent] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  
-  const handleSendOtp = async (e: React.FormEvent) => {
+  const [showOtpInput, setShowOtpInput] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
-    
-    if (!email) {
-      setError('Email is required');
-      return;
-    }
-    
-    setIsLoading(true);
+    setSuccessMessage('');
     
     try {
       await login(email);
-      setIsOtpSent(true);
+      setShowOtpInput(true);
+      setSuccessMessage('Verification code sent to your email!');
     } catch (err) {
-      setError('Failed to send OTP. Please try again.');
-      console.error(err);
-    } finally {
-      setIsLoading(false);
+      console.error('Login error:', err);
     }
   };
-  
-  const handleVerifyOtp = async (e: React.FormEvent) => {
+
+  const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
-    
-    if (!otp) {
-      setError('OTP is required');
-      return;
-    }
-    
-    setIsLoading(true);
+    setSuccessMessage('');
     
     try {
       const success = await verifyOtp(email, otp);
-      
       if (success) {
-        navigate('/home');
-      } else {
-        setError('Invalid OTP. Please try again.');
+        setSuccessMessage('Successfully verified!');
+        setShowOtpInput(false);
+        setOtp('');
       }
     } catch (err) {
-      setError('Failed to verify OTP. Please try again.');
-      console.error(err);
-    } finally {
-      setIsLoading(false);
+      console.error('Verification error:', err);
     }
   };
-  
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      setEmail('');
+      setOtp('');
+      setShowOtpInput(false);
+      setSuccessMessage('Successfully logged out!');
+    } catch (err) {
+      console.error('Logout error:', err);
+    }
+  };
+
   return (
     <AuthContainer>
-      <Logo>Bump</Logo>
-      <AuthCard variant="elevated">
-        {!isOtpSent ? (
-          <Form onSubmit={handleSendOtp}>
-            <Input
-              label="Email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              fullWidth
-              required
-              error={error}
-            />
-            <Button type="submit" fullWidth isLoading={isLoading}>
-              Send OTP
-            </Button>
-          </Form>
+      <Card>
+        <h1>Bump Authentication</h1>
+        
+        {isAuthenticated ? (
+          <div>
+            <h2>Welcome, {user?.username || user?.email}!</h2>
+            <p>User ID: {user?.id}</p>
+            <Button onClick={handleLogout}>Logout</Button>
+          </div>
         ) : (
-          <Form onSubmit={handleVerifyOtp}>
-            <Input
-              label="One-Time Password"
-              type="text"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-              placeholder="Enter the OTP sent to your email"
-              fullWidth
-              required
-              error={error}
-            />
-            <Button type="submit" fullWidth isLoading={isLoading}>
-              Verify
-            </Button>
-            <Button
-              type="button"
-              variant="text"
-              fullWidth
-              onClick={() => setIsOtpSent(false)}
-              disabled={isLoading}
-              style={{ marginTop: '16px' }}
-            >
-              Back to Email
-            </Button>
-          </Form>
+          <>
+            {!showOtpInput ? (
+              <Form onSubmit={handleLogin}>
+                <Input
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <Button type="submit" disabled={isLoading}>
+                  {isLoading ? 'Sending...' : 'Send Login Code'}
+                </Button>
+              </Form>
+            ) : (
+              <Form onSubmit={handleVerify}>
+                <Input
+                  type="text"
+                  placeholder="Verification Code"
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value)}
+                  required
+                />
+                <Button type="submit" disabled={isLoading}>
+                  {isLoading ? 'Verifying...' : 'Verify Code'}
+                </Button>
+                <Button 
+                  type="button" 
+                  variant="secondary"
+                  onClick={() => setShowOtpInput(false)}
+                >
+                  Back to Email
+                </Button>
+              </Form>
+            )}
+          </>
         )}
-      </AuthCard>
+        
+        {error && <ErrorMessage>{error}</ErrorMessage>}
+        {successMessage && <SuccessMessage>{successMessage}</SuccessMessage>}
+        
+        {isLoading && <p>Loading...</p>}
+      </Card>
     </AuthContainer>
   );
 };

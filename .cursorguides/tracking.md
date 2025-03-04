@@ -26,6 +26,8 @@
   - Profile service created
   - Tests for Supabase integration
 - All tests are now passing (60/60)
+- Database schema pushed to Supabase
+- Created test page for authentication flow
 
 ## Action Plan (from Project Documentation)
 
@@ -40,7 +42,7 @@
    - Create Supabase project
    - Apply schema migrations
    - Set up client with polling fallback
-   - Status: **In Progress**
+   - Status: **In Progress** (Schema pushed, authentication flow implemented)
 
 3. **Home & Check-In**:  
    - Build Home page with status list (Supabase fetch, grouped by place)
@@ -81,7 +83,7 @@
    - Status: **Not Started**
 
 ## Next Steps
-1. Push the database schema to Supabase
+1. ~~Push the database schema to Supabase~~ (Completed)
 2. Test the authentication flow with Supabase
 3. Implement the profile management functionality
 4. Set up real-time subscriptions for check-ins
@@ -119,6 +121,10 @@
 - Implemented data subscription hook with polling fallback
 - Added tests for Supabase client, error handling, and authentication
 - Fixed failing tests in error handling and authentication context
+- Linked local project to Supabase project
+- Pushed database schema to Supabase
+- Enhanced Auth page with login, verification, and logout functionality
+- Updated theme with error and success colors
 
 ## Notes on Supabase Initialization
 When initializing Supabase with `supabase init`, you may be prompted about generating VS Code settings for Deno. You can bypass this by using `echo "N" | supabase init` to automatically answer "no" to this question.
