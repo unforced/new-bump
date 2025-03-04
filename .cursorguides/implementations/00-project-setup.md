@@ -6,8 +6,10 @@ This guide provides a high-level overview for setting up the Bump application an
 ## Quick Start
 
 ```bash
-# 1. Create a new Vite project with React and TypeScript
-npm create vite@latest bump --template react-ts
+npm install -g degit
+
+# 1. Create a new Vite project with React and TypeScript using degit
+npx degit vitejs/vite/packages/create-vite/template-react-ts bump --force
 cd bump
 
 # 2. Install core dependencies
