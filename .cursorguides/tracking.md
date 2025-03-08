@@ -49,9 +49,9 @@
 ### In Progress
 4. 🔄 Gathering Places
    - ✅ Created Place Service with CRUD operations
-   - ⬜ Implement Places Page with List/Map Toggle
-   - ⬜ Implement PlaceForm Component
-   - ⬜ Integrate Google Maps
+   - ✅ Implemented Places Page with List/Map Toggle
+   - ⬜ Implement PlaceForm Component (placeholder created, needs Google Places API integration)
+   - ⬜ Integrate Google Maps (placeholder created, needs actual Google Maps integration)
 
 ### Upcoming Milestones
 5. ⬜ Friends & Intent
@@ -63,20 +63,20 @@
 ## Action Plan
 
 ### Next Steps for Milestone 4: Gathering Places
-1. Implement Places Page with List/Map Toggle
-   - Create a page that displays places in both list and map views
-   - Implement a toggle to switch between views
-   - Add a button to open the PlaceForm
+1. ✅ Implement Places Page with List/Map Toggle
+   - ✅ Created a page that displays places in both list and map views
+   - ✅ Implemented a toggle to switch between views
+   - ✅ Added a button to open the PlaceForm
 
-2. Implement PlaceForm Component
-   - Create a form for adding and editing places
+2. Enhance PlaceForm Component
    - Integrate with Google Places API for address autocomplete
    - Implement form validation
+   - Add error handling
 
 3. Integrate Google Maps
    - Set up Google Maps API
-   - Create a map component to display places
-   - Implement markers for places
+   - Replace placeholder map with actual Google Maps component
+   - Implement markers for places with proper positioning
 
 ### Learnings & Best Practices
 - **Supabase RLS Policies**: Ensure Row Level Security policies are properly configured to restrict access to user-specific data.
@@ -84,6 +84,8 @@
 - **Error Handling**: Implement consistent error handling patterns across all services.
 - **Testing Strategy**: Write comprehensive tests for all components and services, including unit tests and integration tests.
 - **Integration Testing with Supabase**: Implement integration tests that make actual API calls to a test database. These tests can catch issues that unit tests with mocks might miss, such as incorrect query syntax or mismatched data structures. Use a dedicated test script to create and clean up test data, ensuring that tests are isolated and do not interfere with each other.
+- **Component Design**: Create reusable components with clear interfaces and proper styling to maintain consistency across the application.
+- **Modal Patterns**: Use modals for forms and dialogs to provide a consistent user experience for data entry and confirmation.
 
 ## Action Plan (from Project Documentation)
 
