@@ -42,8 +42,12 @@
   - Implemented PlaceForm Component with Google Places API integration
   - Integrated Google Maps for displaying places on a map
   - Added tests for all new components and services
-- Starting Friends & Intent milestone:
-  - Created implementation guide for Friends & Intent
+- Implemented Friends & Intent functionality:
+  - Created Friend Service with CRUD operations
+  - Implemented Friends Page with friend list and requests
+  - Implemented UserSelector Component for adding friends
+  - Implemented 'Hope to Bump' toggles
+  - Added tests for all new components and services
 
 ## Current Project State
 
@@ -52,42 +56,42 @@
 2. ✅ Supabase Integration
 3. ✅ Home & Check-In
 4. ✅ Gathering Places
+5. ✅ Friends & Intent
 
 ### In Progress
-5. 🔄 Friends & Intent
-   - ⬜ Create Friend Service with CRUD operations
-   - ⬜ Implement Friends Page with friend list
-   - ⬜ Implement UserSelector Component for adding friends
-   - ⬜ Implement 'Hope to Bump' toggles
+6. 🔄 Meetups
+   - ⬜ Create Meetup Service with CRUD operations
+   - ⬜ Implement Meetups Page with history list
+   - ⬜ Implement MeetupForm Component
+   - ⬜ Add tests for all new components and services
 
 ### Upcoming Milestones
-6. ⬜ Meetups
 7. ⬜ Settings
 8. ⬜ Notifications
 9. ⬜ Polish & Deploy
 
 ## Action Plan
 
-### Next Steps for Milestone 5: Friends & Intent
-1. Create Friend Service with CRUD operations
-   - Implement functions to create, read, update, and delete friend connections
+### Next Steps for Milestone 6: Meetups
+1. Create Meetup Service with CRUD operations
+   - Implement functions to create, read, update, and delete meetups
    - Add error handling and type safety
    - Write comprehensive tests for all functions
 
-2. Implement Friends Page with friend list
-   - Create a page that displays the user's friends
-   - Implement a search/filter functionality
-   - Add a button to open the UserSelector
+2. Implement Meetups Page with history list
+   - Create a page that displays past meetups
+   - Implement filtering and sorting options
+   - Add a button to open the MeetupForm
 
-3. Implement UserSelector Component
-   - Create a component for searching and selecting users
-   - Implement search functionality
-   - Add UI for sending friend requests
+3. Implement MeetupForm Component
+   - Create a form for logging meetups
+   - Add form validation and error handling
+   - Implement friend selection
 
-4. Implement 'Hope to Bump' toggles
-   - Add toggles to indicate intent to meet with friends
-   - Implement functionality to update intent status
-   - Add visual indicators for mutual intent
+4. Add tests for all new components and services
+   - Write unit tests for the Meetup Service
+   - Write unit tests for the Meetups Page
+   - Write unit tests for the MeetupForm Component
 
 ## Completed Steps
 - Created project tracking file (now at .cursorguides/tracking.md)
@@ -138,6 +142,7 @@
 - Added integration test script to package.json
 - Fixed foreign key constraint issues in integration tests
 - Implemented service role authentication for integration tests
+- All integration tests are now passing
 - Completed Home & Check-In milestone with all tests passing
 - Fixed TypeScript errors by running build process
 - Completed Gathering Places milestone with all components implemented and tests passing:
@@ -145,6 +150,11 @@
   - Places Page with List/Map Toggle
   - PlaceForm Component with Google Places API integration
   - Google Maps integration
+- Completed Friends & Intent milestone with all components implemented and tests passing:
+  - Friend Service with CRUD operations
+  - Friends Page with friend list and requests
+  - UserSelector Component for adding friends
+  - 'Hope to Bump' toggles
 
 ## Notes on Supabase Initialization
 When initializing Supabase with `supabase init`, you may be prompted about generating VS Code settings for Deno. You can bypass this by using `echo "N" | supabase init` to automatically answer "no" to this question.
@@ -198,4 +208,6 @@ Always check the following resources for guidance:
 
 - **Build Process**: Run the build process regularly to catch TypeScript errors that might not be caught during development. The build process is more strict than the development server and can identify issues like unused imports, type mismatches, and other errors that might be missed during development.
 
-- **Google Maps Integration**: Use the @react-google-maps/api library for integrating Google Maps into React applications. Implement proper loading states and error handling for API calls. Use the Places Autocomplete API for address input to ensure accurate location data. 
+- **Google Maps Integration**: Use the @react-google-maps/api library for integrating Google Maps into React applications. Implement proper loading states and error handling for API calls. Use the Places Autocomplete API for address input to ensure accurate location data.
+
+- **Real-time Subscriptions**: Implement real-time subscriptions for data that needs to be updated in real-time, such as friend requests and status updates. Use the Supabase real-time API to subscribe to changes in the database and update the UI accordingly. 
