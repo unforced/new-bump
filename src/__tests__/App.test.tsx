@@ -31,8 +31,22 @@ vi.mock('../components/BottomNavigation', () => ({
   default: () => <div data-testid="bottom-navigation">Bottom Navigation</div>,
 }));
 
+vi.mock('../components/ProtectedRoute', () => ({
+  default: ({ children }: { children: React.ReactNode }) => <div data-testid="protected-route">{children}</div>,
+}));
+
 vi.mock('../context/AuthContext', () => ({
   AuthProvider: ({ children }: { children: React.ReactNode }) => <div data-testid="auth-provider">{children}</div>,
+  useAuth: () => ({
+    isAuthenticated: true,
+    isLoading: false,
+    user: { id: 'test-user', email: 'test@example.com' },
+    login: vi.fn(),
+    logout: vi.fn(),
+    verifyOtp: vi.fn(),
+    updateProfile: vi.fn(),
+    error: null
+  }),
 }));
 
 // Mock the router to control the current route
@@ -73,5 +87,8 @@ describe('App Component', () => {
     expect(screen.getByTestId('route-meetups')).toBeInTheDocument();
     expect(screen.getByTestId('route-settings')).toBeInTheDocument();
     expect(screen.getByTestId('route-*')).toBeInTheDocument();
+    
+    // Check that protected routes are used for authenticated routes
+    expect(screen.getAllByTestId('protected-route').length).toBe(5); // Home, Places, Friends, Meetups, Settings
   });
 }); 
