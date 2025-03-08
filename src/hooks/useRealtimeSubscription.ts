@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { supabase, isDevelopment } from '../utils/supabaseClient';
+import { supabase } from '../utils/supabaseClient';
 import { logError } from '../utils/supabaseClient';
 
 interface SubscriptionOptions {

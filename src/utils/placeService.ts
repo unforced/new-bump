@@ -1,4 +1,5 @@
 import { supabase, logError } from './supabaseClient';
+import { withErrorHandling } from './errorHandling';
 import { v4 as uuidv4 } from 'uuid';
 
 // Define the Place interface
@@ -27,31 +28,24 @@ export interface PlaceInput {
  * Fetches all places for the current user
  * @returns A promise with the places data or an error
  */
-export const getPlaces = async () => {
-  try {
-    const { data: userData, error: userError } = await supabase.auth.getUser();
+export async function getPlaces() {
+  return withErrorHandling(async () => {
+    // Get the current user
+    const { error: userError } = await supabase.auth.getUser();
     
-    if (userError) {
-      logError('Error getting user', userError);
-      return { data: null, error: userError };
-    }
+    if (userError) throw userError;
     
+    // Fetch places
     const { data, error } = await supabase
       .from('places')
       .select('*')
       .order('name', { ascending: true });
     
-    if (error) {
-      logError('Error fetching places', error);
-      return { data: null, error };
-    }
+    if (error) throw error;
     
-    return { data, error: null };
-  } catch (error) {
-    logError('Unexpected error in getPlaces', error);
-    return { data: null, error };
-  }
-};
+    return data as Place[];
+  });
+}
 
 /**
  * Creates a new place
@@ -123,21 +117,16 @@ export const updatePlace = async (id: string, updates: Partial<PlaceInput>) => {
  * @param id The ID of the place to delete
  * @returns A promise with the deleted place ID or an error
  */
-export const deletePlace = async (id: string) => {
-  try {
-    const { data, error } = await supabase
+export async function deletePlace(id: string) {
+  return withErrorHandling(async () => {
+    // Check if the place exists and the user has permission to delete it
+    const { error } = await supabase
       .from('places')
       .delete()
       .eq('id', id);
     
-    if (error) {
-      logError('Error deleting place', error);
-      return { data: null, error };
-    }
+    if (error) throw error;
     
-    return { data: { id }, error: null };
-  } catch (error) {
-    logError('Unexpected error in deletePlace', error);
-    return { data: null, error };
-  }
-}; 
+    return { id };
+  });
+} 

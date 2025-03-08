@@ -45,19 +45,48 @@ export async function createProfile(profile: Omit<UserProfile, 'created_at'>) {
 /**
  * Updates an existing user profile
  */
-export async function updateProfile(userId: string, updates: Partial<UserProfile>) {
+export async function updateProfile(userId: string, profile: Partial<UserProfile>) {
   return withErrorHandling(async () => {
-    const { data, error } = await supabase
+    // Check if profile exists
+    const { data: existingProfile, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', userId)
+      .single();
+    
+    if (error && error.code !== 'PGRST116') {
+      throw error;
+    }
+    
+    // If profile doesn't exist, create it
+    if (!existingProfile) {
+      const { data, error } = await supabase
+        .from('profiles')
+        .insert({
+          id: userId,
+          ...profile,
+          updated_at: new Date().toISOString(),
+        })
+        .select()
+        .single();
+      
+      if (error) throw error;
+      
+      return data as UserProfile;
+    }
+    
+    // Otherwise, update the existing profile
+    const { data, error: updateError } = await supabase
       .from('profiles')
       .update({
-        ...updates,
+        ...profile,
         updated_at: new Date().toISOString(),
       })
       .eq('id', userId)
       .select()
       .single();
     
-    if (error) throw error;
+    if (updateError) throw updateError;
     
     return data as UserProfile;
   });
@@ -69,7 +98,7 @@ export async function updateProfile(userId: string, updates: Partial<UserProfile
 export async function upsertProfile(profile: Omit<UserProfile, 'created_at'>) {
   return withErrorHandling(async () => {
     // First try to get the profile
-    const { data: existingProfile, error: fetchError } = await supabase
+    const { data: existingProfile } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', profile.id)
@@ -80,7 +109,41 @@ export async function upsertProfile(profile: Omit<UserProfile, 'created_at'>) {
       return updateProfile(profile.id, profile);
     }
     
-    // If profile doesn't exist, create it
+    // Otherwise, create a new profile
     return createProfile(profile);
+  });
+}
+
+/**
+ * Gets a user profile by ID
+ */
+export async function getProfileById(userId: string) {
+  return withErrorHandling(async () => {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', userId)
+      .single();
+    
+    if (error) throw error;
+    
+    return data as UserProfile;
+  });
+}
+
+/**
+ * Gets a user profile by email
+ */
+export async function getProfileByEmail(email: string) {
+  return withErrorHandling(async () => {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('email', email)
+      .single();
+    
+    if (error) throw error;
+    
+    return data as UserProfile;
   });
 } 

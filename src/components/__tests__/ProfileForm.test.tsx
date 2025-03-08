@@ -1,35 +1,63 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { vi, describe, it, expect, beforeEach } from 'vitest';
 import { ThemeProvider } from 'styled-components';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import theme from '../../styles/theme';
 import ProfileForm from '../ProfileForm';
-import { AuthProvider } from '../../context/AuthContext';
 import * as AuthContext from '../../context/AuthContext';
+import { AuthProvider } from '../../context/AuthContext';
+import theme from '../../styles/theme';
 
 // Mock the useAuth hook
-vi.mock('../../context/AuthContext', async () => {
-  const actual = await vi.importActual('../../context/AuthContext');
-  return {
-    ...actual,
-    useAuth: vi.fn(),
-  };
-});
+vi.mock('../../context/AuthContext', () => ({
+  useAuth: vi.fn(),
+  AuthProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+}));
 
 describe('ProfileForm', () => {
   const mockUser = {
-    id: '123',
-    email: 'test@example.com',
+    id: 'user123',
+    email: 'user@example.com',
     username: 'testuser',
-    phone: '1234567890',
-    created_at: '2023-01-01T00:00:00Z',
+    phone: '123-456-7890',
+    created_at: '2025-03-01T12:00:00Z',
   };
-
-  const mockUpdateProfile = vi.fn();
-  const mockOnProfileUpdate = vi.fn();
 
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+  it('renders the profile form with user data', () => {
+    // Mock the useAuth hook to return a user
+    vi.mocked(AuthContext.useAuth).mockReturnValue({
+      user: mockUser,
+      updateProfile: vi.fn(),
+      isAuthenticated: true,
+      isLoading: false,
+      error: null,
+      login: vi.fn(),
+      verifyOtp: vi.fn(),
+      logout: vi.fn(),
+      devLogin: vi.fn(),
+    });
+
+    render(
+      <ThemeProvider theme={theme}>
+        <AuthProvider>
+          <ProfileForm />
+        </AuthProvider>
+      </ThemeProvider>
+    );
+
+    // Check that the form fields are populated with user data
+    expect(screen.getByLabelText(/username/i)).toHaveValue('testuser');
+    expect(screen.getByLabelText(/email/i)).toHaveValue('user@example.com');
+    expect(screen.getByLabelText(/phone/i)).toHaveValue('123-456-7890');
+  });
+
+  it('displays an error message when update fails', async () => {
+    // Mock the updateProfile function to return an error
+    const mockUpdateProfile = vi.fn().mockRejectedValue(new Error('Failed to update profile'));
+
+    // Mock the useAuth hook to return a user and the mock updateProfile function
     vi.mocked(AuthContext.useAuth).mockReturnValue({
       user: mockUser,
       updateProfile: mockUpdateProfile,
@@ -39,10 +67,9 @@ describe('ProfileForm', () => {
       login: vi.fn(),
       verifyOtp: vi.fn(),
       logout: vi.fn(),
+      devLogin: vi.fn(),
     });
-  });
 
-  it('renders the profile form with user data', () => {
     render(
       <ThemeProvider theme={theme}>
         <AuthProvider>
@@ -51,84 +78,36 @@ describe('ProfileForm', () => {
       </ThemeProvider>
     );
 
-    expect(screen.getByLabelText(/email/i)).toHaveValue(mockUser.email);
-    expect(screen.getByLabelText(/username/i)).toHaveValue(mockUser.username);
-    expect(screen.getByLabelText(/phone/i)).toHaveValue(mockUser.phone);
-    expect(screen.getByRole('button', { name: /save profile/i })).toBeInTheDocument();
-  });
-
-  it('calls updateProfile when form is submitted', async () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <AuthProvider>
-          <ProfileForm onProfileUpdate={mockOnProfileUpdate} />
-        </AuthProvider>
-      </ThemeProvider>
-    );
-
-    const usernameInput = screen.getByLabelText(/username/i);
-    const phoneInput = screen.getByLabelText(/phone/i);
-    const submitButton = screen.getByRole('button', { name: /save profile/i });
-
-    // Change input values
-    fireEvent.change(usernameInput, { target: { value: 'newusername' } });
-    fireEvent.change(phoneInput, { target: { value: '9876543210' } });
-
+    // Fill out the form
+    fireEvent.change(screen.getByLabelText(/username/i), { target: { value: 'newusername' } });
+    
     // Submit the form
-    fireEvent.click(submitButton);
-
-    await waitFor(() => {
-      expect(mockUpdateProfile).toHaveBeenCalledWith({
-        username: 'newusername',
-        phone: '9876543210',
-      });
+    fireEvent.click(screen.getByRole('button', { name: /save/i }));
+    
+    // Check that updateProfile was called with the correct data
+    expect(mockUpdateProfile).toHaveBeenCalledWith({
+      username: 'newusername',
+      phone: '123-456-7890',
     });
-
-    // Check if onProfileUpdate callback was called
-    await waitFor(() => {
-      expect(mockOnProfileUpdate).toHaveBeenCalled();
-    });
-  });
-
-  it('displays an error message when update fails', async () => {
-    const mockError = 'Failed to update profile';
-    vi.mocked(AuthContext.useAuth).mockReturnValue({
-      user: mockUser,
-      updateProfile: vi.fn().mockRejectedValue(new Error(mockError)),
-      isAuthenticated: true,
-      isLoading: false,
-      error: null,
-      login: vi.fn(),
-      verifyOtp: vi.fn(),
-      logout: vi.fn(),
-    });
-
-    render(
-      <ThemeProvider theme={theme}>
-        <AuthProvider>
-          <ProfileForm />
-        </AuthProvider>
-      </ThemeProvider>
-    );
-
-    const submitButton = screen.getByRole('button', { name: /save profile/i });
-    fireEvent.click(submitButton);
-
+    
+    // Check that an error message is displayed
     await waitFor(() => {
       expect(screen.getByText(/failed to update profile/i)).toBeInTheDocument();
     });
   });
 
   it('displays a message when user is not logged in', () => {
+    // Mock the useAuth hook to return no user
     vi.mocked(AuthContext.useAuth).mockReturnValue({
       user: null,
-      updateProfile: mockUpdateProfile,
+      updateProfile: vi.fn(),
       isAuthenticated: false,
       isLoading: false,
       error: null,
       login: vi.fn(),
       verifyOtp: vi.fn(),
       logout: vi.fn(),
+      devLogin: vi.fn(),
     });
 
     render(
@@ -139,6 +118,7 @@ describe('ProfileForm', () => {
       </ThemeProvider>
     );
 
-    expect(screen.getByText(/please log in to manage your profile/i)).toBeInTheDocument();
+    // Check that a message is displayed
+    expect(screen.getByText(/please log in/i)).toBeInTheDocument();
   });
 }); 

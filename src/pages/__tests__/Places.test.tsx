@@ -1,9 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import Places from '../Places';
 import * as placeServiceModule from '../../utils/placeService';
-import * as googleMapsUtilsModule from '../../utils/googleMapsUtils';
 import { ThemeProvider } from 'styled-components';
 import theme from '../../styles/theme';
 
@@ -111,17 +110,29 @@ describe('Places Page', () => {
     // Check that the list view is rendered by default
     expect(await screen.findByTestId('places-list')).toBeInTheDocument();
     
+    // Get the map toggle button (second button in the view toggle)
+    const mapButton = screen.getByText('Map').closest('button');
+    if (!mapButton) throw new Error('Map button not found');
+    
     // Toggle to map view
-    fireEvent.click(screen.getByTestId('view-toggle'));
+    fireEvent.click(mapButton);
     
     // Check that the map view is rendered
-    expect(await screen.findByTestId('map')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByTestId('map')).toBeInTheDocument();
+    });
+    
+    // Get the list toggle button (first button in the view toggle)
+    const listButton = screen.getByText('List').closest('button');
+    if (!listButton) throw new Error('List button not found');
     
     // Toggle back to list view
-    fireEvent.click(screen.getByTestId('view-toggle'));
+    fireEvent.click(listButton);
     
     // Check that the list view is rendered again
-    expect(await screen.findByTestId('places-list')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByTestId('places-list')).toBeInTheDocument();
+    });
   });
 
   it('should open the PlaceForm when add button is clicked', async () => {
@@ -144,7 +155,7 @@ describe('Places Page', () => {
     // Mock error response from getPlaces
     vi.mocked(placeServiceModule.getPlaces).mockResolvedValue({
       data: null,
-      error: { message: 'Failed to fetch places' }
+      error: 'Failed to fetch places'
     });
 
     render(
@@ -156,7 +167,9 @@ describe('Places Page', () => {
     );
 
     // Check that the error message is rendered
-    expect(await screen.findByText('Failed to fetch places')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('Failed to fetch places')).toBeInTheDocument();
+    });
   });
 
   it('should display a message when no places are available', async () => {

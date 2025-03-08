@@ -87,16 +87,15 @@ describe('placeService', () => {
 
   describe('getPlaces', () => {
     it('should fetch places for the current user', async () => {
-      // Setup mock
-      const mockFrom = supabaseModule.supabase.from as jest.Mock;
-      mockFrom.mockImplementation(() => ({
-        select: vi.fn(() => ({
-          order: vi.fn(() => Promise.resolve({
-            data: mockPlaces,
-            error: null
-          }))
-        }))
-      }));
+      // Mock the Supabase response
+      const mockResponse = { data: mockPlaces, error: null };
+      
+      const mockFrom = supabaseModule.supabase.from as any;
+      mockFrom.mockReturnValue({
+        select: vi.fn().mockReturnValue({
+          order: vi.fn().mockReturnValue(mockResponse)
+        })
+      });
 
       // Call the function
       const result = await getPlaces();
@@ -109,16 +108,13 @@ describe('placeService', () => {
 
     it('should handle errors when fetching places', async () => {
       // Setup mock with error
-      const mockError = { message: 'Error fetching places' };
-      const mockFrom = supabaseModule.supabase.from as jest.Mock;
-      mockFrom.mockImplementation(() => ({
-        select: vi.fn(() => ({
-          order: vi.fn(() => Promise.resolve({
-            data: null,
-            error: mockError
-          }))
-        }))
-      }));
+      const mockError = 'An unexpected error occurred. Please try again.';
+      const mockFrom = supabaseModule.supabase.from as any;
+      mockFrom.mockReturnValue({
+        select: vi.fn().mockReturnValue({
+          order: vi.fn().mockReturnValue({ data: null, error: 'Error fetching places' })
+        })
+      });
 
       // Call the function
       const result = await getPlaces();
@@ -133,17 +129,17 @@ describe('placeService', () => {
   describe('createPlace', () => {
     it('should create a new place', async () => {
       // Setup mock
-      const mockFrom = supabaseModule.supabase.from as jest.Mock;
-      mockFrom.mockImplementation(() => ({
-        insert: vi.fn(() => ({
-          select: vi.fn(() => ({
-            single: vi.fn(() => Promise.resolve({
+      const mockFrom = supabaseModule.supabase.from as any;
+      mockFrom.mockReturnValue({
+        insert: vi.fn().mockReturnValue({
+          select: vi.fn().mockReturnValue({
+            single: vi.fn().mockReturnValue(Promise.resolve({
               data: mockPlace,
               error: null
             }))
-          }))
-        }))
-      }));
+          })
+        })
+      });
 
       // Create place data
       const placeData = {
@@ -166,17 +162,17 @@ describe('placeService', () => {
     it('should handle errors when creating a place', async () => {
       // Setup mock with error
       const mockError = { message: 'Error creating place' };
-      const mockFrom = supabaseModule.supabase.from as jest.Mock;
-      mockFrom.mockImplementation(() => ({
-        insert: vi.fn(() => ({
-          select: vi.fn(() => ({
-            single: vi.fn(() => Promise.resolve({
+      const mockFrom = supabaseModule.supabase.from as any;
+      mockFrom.mockReturnValue({
+        insert: vi.fn().mockReturnValue({
+          select: vi.fn().mockReturnValue({
+            single: vi.fn().mockReturnValue(Promise.resolve({
               data: null,
               error: mockError
             }))
-          }))
-        }))
-      }));
+          })
+        })
+      });
 
       // Create place data
       const placeData = {
@@ -201,19 +197,19 @@ describe('placeService', () => {
     it('should update an existing place', async () => {
       // Setup mock
       const updatedPlace = { ...mockPlace, name: 'Updated Place' };
-      const mockFrom = supabaseModule.supabase.from as jest.Mock;
-      mockFrom.mockImplementation(() => ({
-        update: vi.fn(() => ({
-          eq: vi.fn(() => ({
-            select: vi.fn(() => ({
-              single: vi.fn(() => Promise.resolve({
+      const mockFrom = supabaseModule.supabase.from as any;
+      mockFrom.mockReturnValue({
+        update: vi.fn().mockReturnValue({
+          eq: vi.fn().mockReturnValue({
+            select: vi.fn().mockReturnValue({
+              single: vi.fn().mockReturnValue(Promise.resolve({
                 data: updatedPlace,
                 error: null
               }))
-            }))
-          }))
-        }))
-      }));
+            })
+          })
+        })
+      });
 
       // Update place data
       const placeId = 'new-place-id';
@@ -233,19 +229,19 @@ describe('placeService', () => {
     it('should handle errors when updating a place', async () => {
       // Setup mock with error
       const mockError = { message: 'Error updating place' };
-      const mockFrom = supabaseModule.supabase.from as jest.Mock;
-      mockFrom.mockImplementation(() => ({
-        update: vi.fn(() => ({
-          eq: vi.fn(() => ({
-            select: vi.fn(() => ({
-              single: vi.fn(() => Promise.resolve({
+      const mockFrom = supabaseModule.supabase.from as any;
+      mockFrom.mockReturnValue({
+        update: vi.fn().mockReturnValue({
+          eq: vi.fn().mockReturnValue({
+            select: vi.fn().mockReturnValue({
+              single: vi.fn().mockReturnValue(Promise.resolve({
                 data: null,
                 error: mockError
               }))
-            }))
-          }))
-        }))
-      }));
+            })
+          })
+        })
+      });
 
       // Update place data
       const placeId = 'new-place-id';
@@ -266,15 +262,15 @@ describe('placeService', () => {
   describe('deletePlace', () => {
     it('should delete a place', async () => {
       // Setup mock
-      const mockFrom = supabaseModule.supabase.from as jest.Mock;
-      mockFrom.mockImplementation(() => ({
-        delete: vi.fn(() => ({
-          eq: vi.fn(() => Promise.resolve({
+      const mockFrom = supabaseModule.supabase.from as any;
+      mockFrom.mockReturnValue({
+        delete: vi.fn().mockReturnValue({
+          eq: vi.fn().mockReturnValue(Promise.resolve({
             data: { id: 'new-place-id' },
             error: null
           }))
-        }))
-      }));
+        })
+      });
 
       // Call the function
       const result = await deletePlace('new-place-id');
@@ -287,16 +283,16 @@ describe('placeService', () => {
 
     it('should handle errors when deleting a place', async () => {
       // Setup mock with error
-      const mockError = { message: 'Error deleting place' };
-      const mockFrom = supabaseModule.supabase.from as jest.Mock;
-      mockFrom.mockImplementation(() => ({
-        delete: vi.fn(() => ({
-          eq: vi.fn(() => Promise.resolve({
+      const mockError = 'An unexpected error occurred. Please try again.';
+      const mockFrom = supabaseModule.supabase.from as any;
+      mockFrom.mockReturnValue({
+        delete: vi.fn().mockReturnValue({
+          eq: vi.fn().mockReturnValue(Promise.resolve({
             data: null,
-            error: mockError
+            error: 'Error deleting place'
           }))
-        }))
-      }));
+        })
+      });
 
       // Call the function
       const result = await deletePlace('new-place-id');
