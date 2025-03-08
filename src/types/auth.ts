@@ -15,6 +15,7 @@ export interface AuthState {
 
 export interface AuthContextType extends AuthState {
   login: (email: string) => Promise<void>;
+  devLogin: (email: string) => Promise<boolean>;
   verifyOtp: (email: string, otp: string) => Promise<boolean>;
   logout: () => Promise<void>;
   updateProfile: (profile: Partial<UserProfile>) => Promise<void>;

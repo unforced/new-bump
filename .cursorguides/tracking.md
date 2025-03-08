@@ -95,6 +95,7 @@
 - **Test Component Behavior**: Focus on testing component behavior rather than implementation details. Avoid tests that rely on accessing component internals, as they are brittle and can break when implementation changes.
 - **Build Verification**: Add a build step in your CI/CD pipeline that verifies the application builds successfully before running tests. This would catch import errors and other build-time issues.
 - **Authentication Flow**: Implement a proper authentication flow with protected routes that redirect unauthenticated users to the login page. Use React Router's Navigate component for redirects and create a ProtectedRoute component to wrap routes that require authentication.
+- **Development Conveniences**: Implement development-only features to make testing easier, such as a development login that bypasses email verification. Use environment checks like isDevelopment() to conditionally enable these features only in development mode.
 
 ## Action Plan (from Project Documentation)
 
