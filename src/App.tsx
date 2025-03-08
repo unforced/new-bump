@@ -1,37 +1,39 @@
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import theme from '@styles/theme';
-import GlobalStyles from '@styles/globalStyles';
-import { AuthProvider } from '@context/AuthContext';
-import Layout from '@components/Layout';
-import Auth from '@pages/Auth';
-import Home from '@pages/Home';
-import Places from '@pages/Places';
-import Friends from '@pages/Friends';
-import Meetups from '@pages/Meetups';
-import Settings from '@pages/Settings';
+import theme from './styles/theme';
+import GlobalStyles from './styles/globalStyles';
+import Home from './pages/Home';
+import Places from './pages/Places';
+import Auth from './pages/Auth';
+import Friends from './pages/Friends';
+import Meetups from './pages/Meetups';
+import Settings from './pages/Settings';
+import BottomNavigation from './components/BottomNavigation';
+import { AuthProvider } from './context/AuthContext';
 
-function App() {
+const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <AuthProvider>
         <Router>
-          <Layout>
+          <div className="app-container">
             <Routes>
               <Route path="/auth" element={<Auth />} />
-              <Route path="/home" element={<Home />} />
+              <Route path="/" element={<Home />} />
               <Route path="/places" element={<Places />} />
               <Route path="/friends" element={<Friends />} />
               <Route path="/meetups" element={<Meetups />} />
               <Route path="/settings" element={<Settings />} />
-              <Route path="/" element={<Navigate to="/home" replace />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
-          </Layout>
+            <BottomNavigation />
+          </div>
         </Router>
       </AuthProvider>
     </ThemeProvider>
   );
-}
+};
 
 export default App;
