@@ -25,7 +25,7 @@
   - Authentication context updated to use Supabase
   - Profile service created
   - Tests for Supabase integration
-- All tests are now passing (82/82)
+- All tests are now passing
 - Database schema pushed to Supabase
 - Created test page for authentication flow
 - Implemented profile management functionality
@@ -34,6 +34,7 @@
   - Implemented CheckInForm component
   - Updated Home page to display check-ins grouped by place
   - Added tests for all new components and services
+  - Fixed TypeScript errors and test failures
 - Implemented integration testing for Supabase interactions
 - Starting Gathering Places milestone:
   - Created implementation guide for Gathering Places
@@ -48,10 +49,10 @@
 
 ### In Progress
 4. 🔄 Gathering Places
-   - ✅ Created Place Service with CRUD operations
-   - ✅ Implemented Places Page with List/Map Toggle
-   - ✅ Implemented PlaceForm Component with Google Places API integration
-   - ✅ Integrated Google Maps for displaying places on a map
+   - ⬜ Create Place Service with CRUD operations
+   - ⬜ Implement Places Page with List/Map Toggle
+   - ⬜ Implement PlaceForm Component with Google Places API integration
+   - ⬜ Integrate Google Maps for displaying places on a map
 
 ### Upcoming Milestones
 5. ⬜ Friends & Intent
@@ -63,105 +64,26 @@
 ## Action Plan
 
 ### Next Steps for Milestone 4: Gathering Places
-1. ✅ Implement Places Page with List/Map Toggle
-   - ✅ Created a page that displays places in both list and map views
-   - ✅ Implemented a toggle to switch between views
-   - ✅ Added a button to open the PlaceForm
+1. Create Place Service with CRUD operations
+   - Implement functions to create, read, update, and delete places
+   - Add error handling and type safety
+   - Write comprehensive tests for all functions
 
-2. ✅ Enhance PlaceForm Component
-   - ✅ Integrated with Google Places API for address autocomplete
-   - ✅ Implemented form validation
-   - ✅ Added error handling
-   - ✅ Added map preview for selected locations
+2. Implement Places Page with List/Map Toggle
+   - Create a page that displays places in both list and map views
+   - Implement a toggle to switch between views
+   - Add a button to open the PlaceForm
 
-3. ✅ Integrate Google Maps
-   - ✅ Set up Google Maps API
-   - ✅ Replaced placeholder map with actual Google Maps component
-   - ✅ Implemented markers for places with proper positioning
-   - ✅ Added info windows for place details
+3. Implement PlaceForm Component
+   - Create a form for adding and editing places
+   - Integrate with Google Places API for address autocomplete
+   - Add form validation and error handling
 
-### Learnings & Best Practices
-- **Supabase RLS Policies**: Ensure Row Level Security policies are properly configured to restrict access to user-specific data.
-- **TypeScript Interfaces**: Define clear interfaces for all data structures to ensure type safety throughout the application.
-- **Error Handling**: Implement consistent error handling patterns across all services.
-- **Testing Strategy**: Write comprehensive tests for all components and services, including unit tests and integration tests.
-- **Integration Testing with Supabase**: Implement integration tests that make actual API calls to a test database. These tests can catch issues that unit tests with mocks might miss, such as incorrect query syntax or mismatched data structures. Use a dedicated test script to create and clean up test data, ensuring that tests are isolated and do not interfere with each other.
-- **Component Design**: Create reusable components with clear interfaces and proper styling to maintain consistency across the application.
-- **Modal Patterns**: Use modals for forms and dialogs to provide a consistent user experience for data entry and confirmation.
-- **Google Maps Integration**: Use the @react-google-maps/api library for integrating Google Maps into React applications. Implement proper loading states and error handling for API calls. Use the Places Autocomplete API for address input to ensure accurate location data.
-- **Environment Variables**: Store API keys and other sensitive information in environment variables to keep them secure and easily configurable across different environments.
-- **Import Validation**: Ensure imports match actual file names and exports. Test main application components to catch import errors early. Consider using tools like ESLint with plugins that validate imports against the actual file system.
-- **Naming Conventions**: Adopt and enforce consistent naming conventions for files and exports to avoid confusion. For example, use camelCase for file names and PascalCase for component exports.
-- **Test Component Behavior**: Focus on testing component behavior rather than implementation details. Avoid tests that rely on accessing component internals, as they are brittle and can break when implementation changes.
-- **Build Verification**: Add a build step in your CI/CD pipeline that verifies the application builds successfully before running tests. This would catch import errors and other build-time issues.
-- **Authentication Flow**: Implement a proper authentication flow with protected routes that redirect unauthenticated users to the login page. Use React Router's Navigate component for redirects and create a ProtectedRoute component to wrap routes that require authentication.
-- **Development Conveniences**: Implement development-only features to make testing easier, such as a development login that bypasses email verification. Use environment checks like isDevelopment() to conditionally enable these features only in development mode.
-
-## Action Plan (from Project Documentation)
-
-1. **Initialize Project**:  
-   - Set up React/Vite PWA with TypeScript, routing, styled-components, workbox, Vitest
-   - Create app structure with routes (Auth, Home, Places, Friends, Meetups, Settings)
-   - Implement theme system with interfaces
-   - Set up testing environment
-   - Status: **Completed**
-
-2. **Supabase Integration**:  
-   - Create Supabase project
-   - Apply schema migrations
-   - Set up client with polling fallback
-   - Status: **Completed**
-
-3. **Home & Check-In**:  
-   - Build Home page with status list (Supabase fetch, grouped by place)
-   - Implement CheckInForm (place/activity/privacy)
-   - Status: **Completed**
-
-4. **Gathering Places**:  
-   - Create Places page with list/map toggle
-   - Implement PlaceForm (Google Maps autocomplete/pin)
-   - Status: **In Progress**
-
-5. **Friends & Intent**:  
-   - Build Friends page with friend list
-   - Create UserSelector for adding friends
-   - Implement 'Hope to Bump' toggles
-   - Status: **Not Started**
-
-6. **Meetups**:  
-   - Create Meetups page with log form
-   - Implement history list
-   - Status: **Not Started**
-
-7. **Settings**:  
-   - Build Settings page with availability settings
-   - Implement notification preferences
-   - Add 'Do Not Disturb' functionality
-   - Status: **Not Started**
-
-8. **Notifications**:  
-   - Add notification bell with history
-   - Status: **Not Started**
-
-9. **Polish & Deploy**:  
-   - Add animations (pulse/fade)
-   - Ensure responsive UI
-   - Set up PWA
-   - Deploy to Vercel
-   - Status: **Not Started**
-
-## Next Steps
-1. ~~Push the database schema to Supabase~~ (Completed)
-2. ~~Test the authentication flow with Supabase~~ (Completed)
-3. ~~Implement the profile management functionality~~ (Completed)
-4. ~~Set up real-time subscriptions for check-ins~~ (Completed)
-5. ~~Implement the Home page with status list~~ (Completed)
-6. Implement the Places page with list/map toggle:
-   - Create place service for managing places in Supabase
-   - Implement Places page with list/map toggle
-   - Create PlaceForm component with Google Maps integration
-   - Add tests for all new components and services
-7. Create the PlaceForm component with Google Maps integration
+4. Integrate Google Maps
+   - Set up Google Maps API
+   - Create a map component for displaying places
+   - Implement markers for places with proper positioning
+   - Add info windows for place details
 
 ## Completed Steps
 - Created project tracking file (now at .cursorguides/tracking.md)
@@ -212,7 +134,8 @@
 - Added integration test script to package.json
 - Fixed foreign key constraint issues in integration tests
 - Implemented service role authentication for integration tests
-- All integration tests are now passing
+- Completed Home & Check-In milestone with all tests passing
+- Fixed TypeScript errors by running build process
 
 ## Notes on Supabase Initialization
 When initializing Supabase with `supabase init`, you may be prompted about generating VS Code settings for Deno. You can bypass this by using `echo "N" | supabase init` to automatically answer "no" to this question.
@@ -262,4 +185,6 @@ Always check the following resources for guidance:
 
 - **Testing React Components**: When testing React components, be aware of the limitations of testing libraries. Sometimes it's better to test component behavior (e.g., function calls, state changes) rather than trying to test specific DOM elements that might be difficult to query.
 
-- **Integration Testing with Supabase**: Implement integration tests that make actual API calls to a test database to catch issues that unit tests with mocks might miss, such as incorrect query syntax or mismatched data structures. Use a dedicated test script that creates and cleans up test data to ensure tests are isolated and don't interfere with each other. 
+- **Integration Testing with Supabase**: Implement integration tests that make actual API calls to a test database to catch issues that unit tests with mocks might miss, such as incorrect query syntax or mismatched data structures. Use a dedicated test script that creates and cleans up test data to ensure tests are isolated and don't interfere with each other.
+
+- **Build Process**: Run the build process regularly to catch TypeScript errors that might not be caught during development. The build process is more strict than the development server and can identify issues like unused imports, type mismatches, and other errors that might be missed during development. 
