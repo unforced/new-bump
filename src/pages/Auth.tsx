@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAuth } from '../context/AuthContext';
 import Button from '../components/Button';
@@ -38,6 +39,14 @@ const Auth: React.FC = () => {
   const [otp, setOtp] = useState('');
   const [showOtpInput, setShowOtpInput] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
+
+  // Redirect to home page if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,6 +71,7 @@ const Auth: React.FC = () => {
         setSuccessMessage('Successfully verified!');
         setShowOtpInput(false);
         setOtp('');
+        // Redirect will happen automatically due to the useEffect
       }
     } catch (err) {
       console.error('Verification error:', err);

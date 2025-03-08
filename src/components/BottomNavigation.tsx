@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import { useAuth } from '../context/AuthContext';
+import { FaHome, FaMapMarkerAlt, FaUsers, FaCalendarAlt, FaCog } from 'react-icons/fa';
 
 // Icons would typically be imported from a library like react-icons
 // For now, we'll use placeholder text
@@ -45,48 +47,54 @@ const NavItem = styled(NavLink)`
   }
 `;
 
-const IconPlaceholder = styled.div`
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+const IconContainer = styled.div`
+  font-size: 1.2rem;
+  margin-bottom: 4px;
 `;
 
 const Label = styled.span`
   font-size: ${({ theme }) => theme.typography.fontSize.small};
-  margin-top: ${({ theme }) => theme.space[1]}px;
 `;
 
 const BottomNavigation: React.FC = () => {
   const location = useLocation();
+  const { isAuthenticated } = useAuth();
   
-  // Don't show navigation on auth page
-  if (location.pathname === '/auth') {
+  // Don't show navigation on auth page or when not authenticated
+  if (location.pathname === '/auth' || !isAuthenticated) {
     return null;
   }
   
   return (
     <NavContainer>
-      <NavItem to="/home" end>
-        <IconPlaceholder>H</IconPlaceholder>
+      <NavItem to="/" end>
+        <IconContainer>
+          <FaHome />
+        </IconContainer>
         <Label>Home</Label>
       </NavItem>
       <NavItem to="/places">
-        <IconPlaceholder>P</IconPlaceholder>
+        <IconContainer>
+          <FaMapMarkerAlt />
+        </IconContainer>
         <Label>Places</Label>
       </NavItem>
       <NavItem to="/friends">
-        <IconPlaceholder>F</IconPlaceholder>
+        <IconContainer>
+          <FaUsers />
+        </IconContainer>
         <Label>Friends</Label>
       </NavItem>
       <NavItem to="/meetups">
-        <IconPlaceholder>M</IconPlaceholder>
+        <IconContainer>
+          <FaCalendarAlt />
+        </IconContainer>
         <Label>Meetups</Label>
       </NavItem>
       <NavItem to="/settings">
-        <IconPlaceholder>S</IconPlaceholder>
+        <IconContainer>
+          <FaCog />
+        </IconContainer>
         <Label>Settings</Label>
       </NavItem>
     </NavContainer>
