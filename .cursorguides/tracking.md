@@ -90,6 +90,10 @@
 - **Modal Patterns**: Use modals for forms and dialogs to provide a consistent user experience for data entry and confirmation.
 - **Google Maps Integration**: Use the @react-google-maps/api library for integrating Google Maps into React applications. Implement proper loading states and error handling for API calls. Use the Places Autocomplete API for address input to ensure accurate location data.
 - **Environment Variables**: Store API keys and other sensitive information in environment variables to keep them secure and easily configurable across different environments.
+- **Import Validation**: Ensure imports match actual file names and exports. Test main application components to catch import errors early. Consider using tools like ESLint with plugins that validate imports against the actual file system.
+- **Naming Conventions**: Adopt and enforce consistent naming conventions for files and exports to avoid confusion. For example, use camelCase for file names and PascalCase for component exports.
+- **Test Component Behavior**: Focus on testing component behavior rather than implementation details. Avoid tests that rely on accessing component internals, as they are brittle and can break when implementation changes.
+- **Build Verification**: Add a build step in your CI/CD pipeline that verifies the application builds successfully before running tests. This would catch import errors and other build-time issues.
 
 ## Action Plan (from Project Documentation)
 
