@@ -21,7 +21,7 @@ This directory contains guides, templates, and troubleshooting information for t
 │   ├── 06-meetups.md               # Meetups functionality
 │   ├── 07-settings.md              # Settings functionality
 │   ├── 08-notifications.md         # Notifications functionality
-│   └── 09-pwa-implementation.md    # PWA setup and optimization
+│   └── 09-polish-and-deploy.md     # Polish and Deploy setup and optimization
 │
 ├── concepts/                  # Conceptual guides
 │   ├── authentication-flow.md      # Authentication concepts
@@ -40,6 +40,7 @@ This directory contains guides, templates, and troubleshooting information for t
 │
 └── troubleshooting/           # Common issues and solutions
     ├── supabase-testing.md         # Supabase testing challenges
+    ├── supabase-integration-testing.md # Integration testing with Supabase
     ├── authentication-issues.md    # Auth troubleshooting
     └── performance-optimization.md # Performance troubleshooting
 ```
@@ -56,15 +57,15 @@ This directory contains guides, templates, and troubleshooting information for t
 | # | Guide | Status | Description |
 |---|-------|--------|-------------|
 | 0 | [Project Setup](./implementations/00-project-setup.md) | ✅ Complete | Project overview and setup instructions |
-| 1 | [Initialize Project](./implementations/01-initialize-project.md) | ⏳ In Progress | Project initialization, routing, styling, testing |
-| 2 | [Supabase Integration](./implementations/02-supabase-integration.md) | 🔜 Planned | Backend setup, authentication, database schema |
-| 3 | [Home & Check-In](./implementations/03-home-checkin.md) | 🔜 Planned | Home page with status list and check-in form |
+| 1 | [Initialize Project](./implementations/01-initialize-project.md) | ✅ Complete | Project initialization, routing, styling, testing |
+| 2 | [Supabase Integration](./implementations/02-supabase-integration.md) | ✅ Complete | Backend setup, authentication, database schema |
+| 3 | [Home & Check-In](./implementations/03-home-checkin.md) | ✅ Complete | Home page with status list and check-in form |
 | 4 | [Gathering Places](./implementations/04-gathering-places.md) | 🔜 Planned | Places list/map with add/edit functionality |
 | 5 | [Friends & Intent](./implementations/05-friends-intent.md) | 🔜 Planned | Friends list with intent toggles |
 | 6 | [Meetups](./implementations/06-meetups.md) | 🔜 Planned | Meetup logging and history |
 | 7 | [Settings](./implementations/07-settings.md) | 🔜 Planned | User preferences and settings |
 | 8 | [Notifications](./implementations/08-notifications.md) | 🔜 Planned | Notification system |
-| 9 | [PWA & Deploy](./implementations/09-pwa-implementation.md) | 🔜 Planned | PWA setup, offline support, and deployment |
+| 9 | [Polish & Deploy](./implementations/09-polish-and-deploy.md) | 🔜 Planned | PWA setup, animations, responsive UI, and deployment |
 
 ## Templates
 
@@ -83,6 +84,7 @@ This directory contains guides, templates, and troubleshooting information for t
 | Guide | Description |
 |-------|-------------|
 | [Supabase Testing](./troubleshooting/supabase-testing.md) | Solutions for common Supabase testing challenges |
+| [Supabase Integration Testing](./troubleshooting/supabase-integration-testing.md) | Guide for integration testing with Supabase |
 | [Authentication Issues](./troubleshooting/authentication-issues.md) | Solutions for authentication problems |
 | [Performance Optimization](./troubleshooting/performance-optimization.md) | Techniques for improving application performance |
 

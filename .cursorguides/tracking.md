@@ -25,10 +25,15 @@
   - Authentication context updated to use Supabase
   - Profile service created
   - Tests for Supabase integration
-- All tests are now passing (64/64)
+- All tests are now passing (82/82)
 - Database schema pushed to Supabase
 - Created test page for authentication flow
 - Implemented profile management functionality
+- Implemented Home & Check-In functionality:
+  - Created status service for managing check-ins
+  - Implemented CheckInForm component
+  - Updated Home page to display check-ins grouped by place
+  - Added tests for all new components and services
 
 ## Action Plan (from Project Documentation)
 
@@ -43,12 +48,12 @@
    - Create Supabase project
    - Apply schema migrations
    - Set up client with polling fallback
-   - Status: **In Progress** (Schema pushed, authentication flow implemented, profile management implemented)
+   - Status: **Completed**
 
 3. **Home & Check-In**:  
    - Build Home page with status list (Supabase fetch, grouped by place)
    - Implement CheckInForm (place/activity/privacy)
-   - Status: **Not Started**
+   - Status: **Completed**
 
 4. **Gathering Places**:  
    - Create Places page with list/map toggle
@@ -87,8 +92,10 @@
 1. ~~Push the database schema to Supabase~~ (Completed)
 2. ~~Test the authentication flow with Supabase~~ (Completed)
 3. ~~Implement the profile management functionality~~ (Completed)
-4. Set up real-time subscriptions for check-ins
-5. Implement the Home page with status list
+4. ~~Set up real-time subscriptions for check-ins~~ (Completed)
+5. ~~Implement the Home page with status list~~ (Completed)
+6. Implement the Places page with list/map toggle
+7. Create the PlaceForm component with Google Maps integration
 
 ## Completed Steps
 - Created project tracking file (now at .cursorguides/tracking.md)
@@ -129,6 +136,17 @@
 - Created ProfileForm component for managing user profiles
 - Updated Settings page to include profile management
 - Fixed Input component to properly associate labels with inputs
+- Created status service for managing check-ins
+- Implemented CheckInForm component for users to check in at places
+- Updated Home page to display check-ins grouped by place
+- Added tests for status service, CheckInForm component, and Home page
+- Fixed test issues to ensure all tests pass
+- Implemented integration tests for Supabase interactions
+- Created comprehensive documentation for integration testing with Supabase
+- Added integration test script to package.json
+- Fixed foreign key constraint issues in integration tests
+- Implemented service role authentication for integration tests
+- All integration tests are now passing
 
 ## Notes on Supabase Initialization
 When initializing Supabase with `supabase init`, you may be prompted about generating VS Code settings for Deno. You can bypass this by using `echo "N" | supabase init` to automatically answer "no" to this question.
@@ -170,4 +188,12 @@ Always check the following resources for guidance:
 
 - **Realtime Subscriptions**: Implement polling fallback for environments where WebSocket connections are not supported or are blocked.
 
-- **Test Mocking Best Practices**: When mocking functions that are imported and used by other functions, use `vi.spyOn` on the imported module rather than trying to mock with `require()`. This ensures proper module resolution in the ESM environment. 
+- **Test Mocking Best Practices**: When mocking functions that are imported and used by other functions, use `vi.spyOn` on the imported module rather than trying to mock with `require()`. This ensures proper module resolution in the ESM environment.
+
+- **Form Validation**: Implement client-side validation for forms to provide immediate feedback to users. Use separate state variables for different types of errors (e.g., validation errors vs. API errors) to provide more specific feedback.
+
+- **Modal Pattern**: Use a consistent pattern for modals throughout the application. This includes handling opening/closing, backdrop clicks, and ensuring proper accessibility.
+
+- **Testing React Components**: When testing React components, be aware of the limitations of testing libraries. Sometimes it's better to test component behavior (e.g., function calls, state changes) rather than trying to test specific DOM elements that might be difficult to query.
+
+- **Integration Testing with Supabase**: Implement integration tests that make actual API calls to a test database to catch issues that unit tests with mocks might miss, such as incorrect query syntax or mismatched data structures. Use a dedicated test script that creates and cleans up test data to ensure tests are isolated and don't interfere with each other. 
