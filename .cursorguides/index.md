@@ -60,7 +60,7 @@ This directory contains guides, templates, and troubleshooting information for t
 | 1 | [Initialize Project](./implementations/01-initialize-project.md) | ✅ Complete | Project initialization, routing, styling, testing |
 | 2 | [Supabase Integration](./implementations/02-supabase-integration.md) | ✅ Complete | Backend setup, authentication, database schema |
 | 3 | [Home & Check-In](./implementations/03-home-checkin.md) | ✅ Complete | Home page with status list and check-in form |
-| 4 | [Gathering Places](./implementations/04-gathering-places.md) | 🔜 Planned | Places list/map with add/edit functionality |
+| 4 | [Gathering Places](./implementations/04-gathering-places.md) | 🔄 In Progress | Places list/map with add/edit functionality |
 | 5 | [Friends & Intent](./implementations/05-friends-intent.md) | 🔜 Planned | Friends list with intent toggles |
 | 6 | [Meetups](./implementations/06-meetups.md) | 🔜 Planned | Meetup logging and history |
 | 7 | [Settings](./implementations/07-settings.md) | 🔜 Planned | User preferences and settings |

@@ -34,6 +34,10 @@
   - Implemented CheckInForm component
   - Updated Home page to display check-ins grouped by place
   - Added tests for all new components and services
+- Implemented integration testing for Supabase interactions
+- Starting Gathering Places milestone:
+  - Created implementation guide for Gathering Places
+  - Planning place service and Google Maps integration
 
 ## Action Plan (from Project Documentation)
 
@@ -58,7 +62,7 @@
 4. **Gathering Places**:  
    - Create Places page with list/map toggle
    - Implement PlaceForm (Google Maps autocomplete/pin)
-   - Status: **Not Started**
+   - Status: **In Progress**
 
 5. **Friends & Intent**:  
    - Build Friends page with friend list
@@ -94,7 +98,11 @@
 3. ~~Implement the profile management functionality~~ (Completed)
 4. ~~Set up real-time subscriptions for check-ins~~ (Completed)
 5. ~~Implement the Home page with status list~~ (Completed)
-6. Implement the Places page with list/map toggle
+6. Implement the Places page with list/map toggle:
+   - Create place service for managing places in Supabase
+   - Implement Places page with list/map toggle
+   - Create PlaceForm component with Google Maps integration
+   - Add tests for all new components and services
 7. Create the PlaceForm component with Google Maps integration
 
 ## Completed Steps
