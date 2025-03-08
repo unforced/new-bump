@@ -50,8 +50,8 @@
 4. 🔄 Gathering Places
    - ✅ Created Place Service with CRUD operations
    - ✅ Implemented Places Page with List/Map Toggle
-   - ⬜ Implement PlaceForm Component (placeholder created, needs Google Places API integration)
-   - ⬜ Integrate Google Maps (placeholder created, needs actual Google Maps integration)
+   - ✅ Implemented PlaceForm Component with Google Places API integration
+   - ✅ Integrated Google Maps for displaying places on a map
 
 ### Upcoming Milestones
 5. ⬜ Friends & Intent
@@ -68,15 +68,17 @@
    - ✅ Implemented a toggle to switch between views
    - ✅ Added a button to open the PlaceForm
 
-2. Enhance PlaceForm Component
-   - Integrate with Google Places API for address autocomplete
-   - Implement form validation
-   - Add error handling
+2. ✅ Enhance PlaceForm Component
+   - ✅ Integrated with Google Places API for address autocomplete
+   - ✅ Implemented form validation
+   - ✅ Added error handling
+   - ✅ Added map preview for selected locations
 
-3. Integrate Google Maps
-   - Set up Google Maps API
-   - Replace placeholder map with actual Google Maps component
-   - Implement markers for places with proper positioning
+3. ✅ Integrate Google Maps
+   - ✅ Set up Google Maps API
+   - ✅ Replaced placeholder map with actual Google Maps component
+   - ✅ Implemented markers for places with proper positioning
+   - ✅ Added info windows for place details
 
 ### Learnings & Best Practices
 - **Supabase RLS Policies**: Ensure Row Level Security policies are properly configured to restrict access to user-specific data.
@@ -86,6 +88,8 @@
 - **Integration Testing with Supabase**: Implement integration tests that make actual API calls to a test database. These tests can catch issues that unit tests with mocks might miss, such as incorrect query syntax or mismatched data structures. Use a dedicated test script to create and clean up test data, ensuring that tests are isolated and do not interfere with each other.
 - **Component Design**: Create reusable components with clear interfaces and proper styling to maintain consistency across the application.
 - **Modal Patterns**: Use modals for forms and dialogs to provide a consistent user experience for data entry and confirmation.
+- **Google Maps Integration**: Use the @react-google-maps/api library for integrating Google Maps into React applications. Implement proper loading states and error handling for API calls. Use the Places Autocomplete API for address input to ensure accurate location data.
+- **Environment Variables**: Store API keys and other sensitive information in environment variables to keep them secure and easily configurable across different environments.
 
 ## Action Plan (from Project Documentation)
 

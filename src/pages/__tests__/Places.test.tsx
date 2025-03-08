@@ -3,12 +3,22 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import Places from '../Places';
 import * as placeServiceModule from '../../utils/placeService';
+import * as googleMapsUtilsModule from '../../utils/googleMapsUtils';
 import { ThemeProvider } from 'styled-components';
 import theme from '../../styles/theme';
 
 // Mock the place service
 vi.mock('../../utils/placeService', () => ({
   getPlaces: vi.fn(),
+  deletePlace: vi.fn(),
+}));
+
+// Mock the Google Maps utils
+vi.mock('../../utils/googleMapsUtils', () => ({
+  useGoogleMapsApi: vi.fn(() => ({
+    isLoaded: true,
+    loadError: null,
+  })),
 }));
 
 // Mock the PlaceForm component
@@ -57,6 +67,11 @@ describe('Places Page', () => {
     // Mock successful response from getPlaces
     vi.mocked(placeServiceModule.getPlaces).mockResolvedValue({
       data: mockPlaces,
+      error: null
+    });
+    // Mock successful response from deletePlace
+    vi.mocked(placeServiceModule.deletePlace).mockResolvedValue({
+      data: { id: 'place-1' },
       error: null
     });
   });
@@ -161,5 +176,57 @@ describe('Places Page', () => {
 
     // Check that the empty state message is rendered
     expect(await screen.findByText('No places added yet')).toBeInTheDocument();
+  });
+
+  it('should delete a place when delete button is clicked', async () => {
+    // Mock window.confirm to return true
+    const originalConfirm = window.confirm;
+    window.confirm = vi.fn(() => true);
+
+    render(
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <Places />
+        </BrowserRouter>
+      </ThemeProvider>
+    );
+
+    // Wait for places to load
+    await screen.findByText('Coffee Shop');
+
+    // Click the delete button for the first place
+    fireEvent.click(await screen.findByTestId('delete-place-place-1'));
+    
+    // Check that deletePlace was called with the correct ID
+    expect(placeServiceModule.deletePlace).toHaveBeenCalledWith('place-1');
+
+    // Restore original confirm
+    window.confirm = originalConfirm;
+  });
+
+  it('should not delete a place when cancel is clicked in confirmation dialog', async () => {
+    // Mock window.confirm to return false
+    const originalConfirm = window.confirm;
+    window.confirm = vi.fn(() => false);
+
+    render(
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <Places />
+        </BrowserRouter>
+      </ThemeProvider>
+    );
+
+    // Wait for places to load
+    await screen.findByText('Coffee Shop');
+
+    // Click the delete button for the first place
+    fireEvent.click(await screen.findByTestId('delete-place-place-1'));
+    
+    // Check that deletePlace was not called
+    expect(placeServiceModule.deletePlace).not.toHaveBeenCalled();
+
+    // Restore original confirm
+    window.confirm = originalConfirm;
   });
 }); 
