@@ -36,9 +36,14 @@
   - Added tests for all new components and services
   - Fixed TypeScript errors and test failures
 - Implemented integration testing for Supabase interactions
-- Starting Gathering Places milestone:
-  - Created implementation guide for Gathering Places
-  - Planning place service and Google Maps integration
+- Implemented Gathering Places functionality:
+  - Created Place Service with CRUD operations
+  - Implemented Places Page with List/Map Toggle
+  - Implemented PlaceForm Component with Google Places API integration
+  - Integrated Google Maps for displaying places on a map
+  - Added tests for all new components and services
+- Starting Friends & Intent milestone:
+  - Created implementation guide for Friends & Intent
 
 ## Current Project State
 
@@ -46,16 +51,16 @@
 1. ✅ Initialize Project
 2. ✅ Supabase Integration
 3. ✅ Home & Check-In
+4. ✅ Gathering Places
 
 ### In Progress
-4. 🔄 Gathering Places
-   - ⬜ Create Place Service with CRUD operations
-   - ⬜ Implement Places Page with List/Map Toggle
-   - ⬜ Implement PlaceForm Component with Google Places API integration
-   - ⬜ Integrate Google Maps for displaying places on a map
+5. 🔄 Friends & Intent
+   - ⬜ Create Friend Service with CRUD operations
+   - ⬜ Implement Friends Page with friend list
+   - ⬜ Implement UserSelector Component for adding friends
+   - ⬜ Implement 'Hope to Bump' toggles
 
 ### Upcoming Milestones
-5. ⬜ Friends & Intent
 6. ⬜ Meetups
 7. ⬜ Settings
 8. ⬜ Notifications
@@ -63,27 +68,26 @@
 
 ## Action Plan
 
-### Next Steps for Milestone 4: Gathering Places
-1. Create Place Service with CRUD operations
-   - Implement functions to create, read, update, and delete places
+### Next Steps for Milestone 5: Friends & Intent
+1. Create Friend Service with CRUD operations
+   - Implement functions to create, read, update, and delete friend connections
    - Add error handling and type safety
    - Write comprehensive tests for all functions
 
-2. Implement Places Page with List/Map Toggle
-   - Create a page that displays places in both list and map views
-   - Implement a toggle to switch between views
-   - Add a button to open the PlaceForm
+2. Implement Friends Page with friend list
+   - Create a page that displays the user's friends
+   - Implement a search/filter functionality
+   - Add a button to open the UserSelector
 
-3. Implement PlaceForm Component
-   - Create a form for adding and editing places
-   - Integrate with Google Places API for address autocomplete
-   - Add form validation and error handling
+3. Implement UserSelector Component
+   - Create a component for searching and selecting users
+   - Implement search functionality
+   - Add UI for sending friend requests
 
-4. Integrate Google Maps
-   - Set up Google Maps API
-   - Create a map component for displaying places
-   - Implement markers for places with proper positioning
-   - Add info windows for place details
+4. Implement 'Hope to Bump' toggles
+   - Add toggles to indicate intent to meet with friends
+   - Implement functionality to update intent status
+   - Add visual indicators for mutual intent
 
 ## Completed Steps
 - Created project tracking file (now at .cursorguides/tracking.md)
@@ -136,6 +140,11 @@
 - Implemented service role authentication for integration tests
 - Completed Home & Check-In milestone with all tests passing
 - Fixed TypeScript errors by running build process
+- Completed Gathering Places milestone with all components implemented and tests passing:
+  - Place Service with CRUD operations
+  - Places Page with List/Map Toggle
+  - PlaceForm Component with Google Places API integration
+  - Google Maps integration
 
 ## Notes on Supabase Initialization
 When initializing Supabase with `supabase init`, you may be prompted about generating VS Code settings for Deno. You can bypass this by using `echo "N" | supabase init` to automatically answer "no" to this question.
@@ -187,4 +196,6 @@ Always check the following resources for guidance:
 
 - **Integration Testing with Supabase**: Implement integration tests that make actual API calls to a test database to catch issues that unit tests with mocks might miss, such as incorrect query syntax or mismatched data structures. Use a dedicated test script that creates and cleans up test data to ensure tests are isolated and don't interfere with each other.
 
-- **Build Process**: Run the build process regularly to catch TypeScript errors that might not be caught during development. The build process is more strict than the development server and can identify issues like unused imports, type mismatches, and other errors that might be missed during development. 
+- **Build Process**: Run the build process regularly to catch TypeScript errors that might not be caught during development. The build process is more strict than the development server and can identify issues like unused imports, type mismatches, and other errors that might be missed during development.
+
+- **Google Maps Integration**: Use the @react-google-maps/api library for integrating Google Maps into React applications. Implement proper loading states and error handling for API calls. Use the Places Autocomplete API for address input to ensure accurate location data. 
