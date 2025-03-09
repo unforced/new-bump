@@ -7,6 +7,7 @@ import { UserProfile } from '../types/auth';
  */
 export async function getProfile(userId: string) {
   return withErrorHandling(async () => {
+    // Check if the profile exists
     const { data, error } = await supabase
       .from('profiles')
       .select('*')
@@ -14,7 +15,6 @@ export async function getProfile(userId: string) {
       .single();
     
     if (error) throw error;
-    if (!data) throw new Error('Profile not found');
     
     return data as UserProfile;
   });
@@ -45,48 +45,28 @@ export async function createProfile(profile: Omit<UserProfile, 'created_at'>) {
 /**
  * Updates an existing user profile
  */
-export async function updateProfile(userId: string, profile: Partial<UserProfile>) {
+export async function updateProfile(userId: string, updates: Partial<UserProfile>) {
   return withErrorHandling(async () => {
-    // Check if profile exists
-    const { data: existingProfile, error } = await supabase
+    // Check if the profile exists
+    const { error: checkError } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', userId)
       .single();
     
-    if (error && error.code !== 'PGRST116') {
-      throw error;
-    }
+    if (checkError) throw checkError;
     
-    // If profile doesn't exist, create it
-    if (!existingProfile) {
-      const { data, error } = await supabase
-        .from('profiles')
-        .insert({
-          id: userId,
-          ...profile,
-          updated_at: new Date().toISOString(),
-        })
-        .select()
-        .single();
-      
-      if (error) throw error;
-      
-      return data as UserProfile;
-    }
-    
-    // Otherwise, update the existing profile
-    const { data, error: updateError } = await supabase
+    const { data, error } = await supabase
       .from('profiles')
       .update({
-        ...profile,
+        ...updates,
         updated_at: new Date().toISOString(),
       })
       .eq('id', userId)
       .select()
       .single();
     
-    if (updateError) throw updateError;
+    if (error) throw error;
     
     return data as UserProfile;
   });
@@ -97,49 +77,33 @@ export async function updateProfile(userId: string, profile: Partial<UserProfile
  */
 export async function upsertProfile(profile: Omit<UserProfile, 'created_at'>) {
   return withErrorHandling(async () => {
-    // First try to get the profile
-    const { data: existingProfile } = await supabase
+    // Check if the profile exists
+    const { error } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', profile.id)
       .single();
     
-    // If profile exists, update it
-    if (existingProfile) {
-      return updateProfile(profile.id, profile);
+    if (error) {
+      // If the profile doesn't exist, create it
+      if (error.message.includes('No rows found')) {
+        return createProfile(profile);
+      }
+      throw error;
     }
     
-    // Otherwise, create a new profile
-    return createProfile(profile);
+    // If the profile exists, update it
+    return updateProfile(profile.id, profile);
   });
 }
 
-/**
- * Gets a user profile by ID
- */
-export async function getProfileById(userId: string) {
+export async function getProfileByUsername(username: string) {
   return withErrorHandling(async () => {
+    // Check if the profile exists
     const { data, error } = await supabase
       .from('profiles')
       .select('*')
-      .eq('id', userId)
-      .single();
-    
-    if (error) throw error;
-    
-    return data as UserProfile;
-  });
-}
-
-/**
- * Gets a user profile by email
- */
-export async function getProfileByEmail(email: string) {
-  return withErrorHandling(async () => {
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('email', email)
+      .eq('username', username)
       .single();
     
     if (error) throw error;
