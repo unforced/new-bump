@@ -266,7 +266,7 @@ const UserSelector: React.FC<UserSelectorProps> = ({ onClose, onFriendAdded }) =
     setSuccess(null);
     
     try {
-      const { data, error } = await addFriend({ friend_id: userId });
+      const { error } = await addFriend({ friend_id: userId });
       
       if (error) {
         setError(String(error));

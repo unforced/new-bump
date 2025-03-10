@@ -2,28 +2,9 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
 import { MemoryRouter } from 'react-router-dom';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import theme from '../../styles/theme';
 import BottomNavigation from '../BottomNavigation';
-
-// Mock the AuthContext
-vi.mock('../../context/AuthContext', async () => {
-  const actual = await vi.importActual('../../context/AuthContext');
-  return {
-    ...actual,
-    useAuth: () => ({
-      isAuthenticated: true,
-      user: { id: 'test-user', email: 'test@example.com' },
-      login: vi.fn(),
-      logout: vi.fn(),
-      devLogin: vi.fn(),
-      verifyOtp: vi.fn(),
-      updateProfile: vi.fn(),
-      isLoading: false,
-      error: null,
-    }),
-  };
-});
 
 // Helper function to render with theme and router
 const renderWithThemeAndRouter = (ui: React.ReactElement, { route = '/' } = {}) => {
@@ -49,7 +30,7 @@ describe('BottomNavigation', () => {
   it('renders navigation with correct links', () => {
     renderWithThemeAndRouter(<BottomNavigation />);
     
-    expect(screen.getByText('Home').closest('a')).toHaveAttribute('href', '/');
+    expect(screen.getByText('Home').closest('a')).toHaveAttribute('href', '/home');
     expect(screen.getByText('Places').closest('a')).toHaveAttribute('href', '/places');
     expect(screen.getByText('Friends').closest('a')).toHaveAttribute('href', '/friends');
     expect(screen.getByText('Meetups').closest('a')).toHaveAttribute('href', '/meetups');

@@ -17,11 +17,7 @@ export interface Friend {
     username: string;
     full_name: string;
     avatar_url: string | null;
-  } | {
-    username: string;
-    full_name: string;
-    avatar_url: string | null;
-  }[];
+  };
 }
 
 // Define the FriendInput interface for creating/updating friends

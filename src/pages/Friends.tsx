@@ -193,7 +193,7 @@ const Friends: React.FC = () => {
   }, []);
   
   // Handle friend update from subscription
-  const handleFriendUpdate = (payload: { new: Friend; old: Friend | null }) => {
+  const handleFriendUpdate = (_payload: { new: Friend; old: Friend | null }) => {
     // Refresh friends list when a friend is updated
     fetchFriends();
   };

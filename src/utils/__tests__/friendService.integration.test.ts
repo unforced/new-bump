@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { supabase } from '../supabaseClient';
-import { getFriends, addFriend, acceptFriend, removeFriend, updateHopeToBump, searchUsers } from '../friendService';
+import { getFriends, addFriend, removeFriend, updateHopeToBump, searchUsers } from '../friendService';
 import { v4 as uuidv4 } from 'uuid';
 
 // Skip tests if not running integration tests

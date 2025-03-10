@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Session } from '@supabase/supabase-js';
 import { AuthContextType, UserProfile } from '../types/auth';
-import { supabase, isDevelopment } from '../utils/supabaseClient';
+import { supabase } from '../utils/supabaseClient';
 import { formatSupabaseError } from '../utils/errorHandling';
 
 // Create the context with a default value
@@ -103,62 +103,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.error('Login error:', error);
       setError(formatSupabaseError(error));
       throw error;
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  // Development-only login function - bypasses email verification
-  const devLogin = async (email: string): Promise<boolean> => {
-    if (!isDevelopment()) {
-      setError('Development login is only available in development mode');
-      return false;
-    }
-
-    setIsLoading(true);
-    setError(null);
-    
-    try {
-      // Validate email format
-      if (!email || !email.includes('@')) {
-        throw new Error('Please enter a valid email address');
-      }
-      
-      // Use magic link in development (this doesn't send an email but creates a session)
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password: 'development-password', // This is a dummy password for development
-      });
-      
-      if (error) {
-        // If the user doesn't exist, create a new one
-        if (error.message.includes('Invalid login credentials')) {
-          const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-            email,
-            password: 'development-password', // This is a dummy password for development
-          });
-          
-          if (signUpError) {
-            throw signUpError;
-          }
-          
-          const userProfile = sessionToUserProfile(signUpData.session);
-          setUser(userProfile);
-          setIsAuthenticated(!!userProfile);
-          return true;
-        } else {
-          throw error;
-        }
-      }
-      
-      const userProfile = sessionToUserProfile(data.session);
-      setUser(userProfile);
-      setIsAuthenticated(!!userProfile);
-      return true;
-    } catch (error) {
-      console.error('Development login error:', error);
-      setError(formatSupabaseError(error));
-      return false;
     } finally {
       setIsLoading(false);
     }
@@ -275,7 +219,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     isLoading,
     error,
     login,
-    devLogin,
     verifyOtp,
     logout,
     updateProfile,

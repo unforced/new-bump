@@ -79,8 +79,8 @@ describe('placeService integration tests', () => {
     expect(Array.isArray(data)).toBe(true);
     
     // Find our test place
-    const foundPlace = data?.find(place => place.id === testPlaceId);
-    expect(foundPlace).toBeDefined();
+    const foundPlace = data?.find((place: any) => place.id === testPlaceId);
+    expect(foundPlace).not.toBeUndefined();
     expect(foundPlace?.name).toBe(testPlace.name);
   });
   
@@ -122,7 +122,7 @@ describe('placeService integration tests', () => {
     
     // Verify it's gone
     const { data: places } = await getPlaces();
-    const foundPlace = places?.find(place => place.id === testPlaceId);
+    const foundPlace = places?.find((place: any) => place.id === testPlaceId);
     expect(foundPlace).toBeUndefined();
     
     // Clear the ID since we've deleted it
